@@ -87,6 +87,8 @@ class ClaudeCliAgent:
             if ev.get("type") == "assistant":
                 for b in ev.get("message", {}).get("content", []):
                     if b.get("type") == "tool_use":
+                        if not b["name"].startswith(TOOL_PREFIX):
+                            continue  # Claude Codes interne værktøjer (ToolSearch, StructuredOutput) er ikke agentens tools
                         name = b["name"].removeprefix(TOOL_PREFIX)
                         res.tool_calls.append({"name": name, "args": b.get("input", {}), "is_error": False, "result_preview": ""})
                 res.turns += 1

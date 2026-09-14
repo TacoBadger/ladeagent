@@ -78,6 +78,8 @@ def score_case(case: dict, res: RunResult, judge) -> dict:
     for chk in case["checks"]:
         if "field" in chk:
             val = parsed.get(chk["field"]) if parsed else None
+            if chk["field"].startswith("window_") and isinstance(val, str):
+                val = val.replace(" ", "T")[:16]  # "2026-09-15T02:00:00" -> "2026-09-15T02:00"
             if "eq" in chk and val != chk["eq"]:
                 failures.append(f"{chk['field']}={val!r} != {chk['eq']!r}")
             if "in" in chk and val not in chk["in"]:
