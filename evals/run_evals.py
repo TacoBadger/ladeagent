@@ -206,6 +206,10 @@ def main() -> None:
     t0 = time.time()
     for i, case in enumerate(cases, 1):
         res = agent.ask(case["question"])
+        if res.error and any(k in res.error for k in ("Not logged in", "AuthenticationError", "authentication_error", "ikke installeret")):
+            raise SystemExit(f"\nSTOP: {res.error}\n"
+                             "  claude-cli: kør `claude` i denne terminal, skriv /login, gennemfør login i browseren, afslut med /exit, og kør igen.\n"
+                             "  api: læg ANTHROPIC_API_KEY i .env.")
         row = score_case(case, res, judge)
         rows.append(row)
         print(f"[{i:2d}/{len(cases)}] {'PASS' if row['passed'] else 'FAIL'} {case['id']:10s} ${row['cost_usd']:.4f} {row['latency_s']:5.1f}s  {'; '.join(row['failures'])[:110]}")
