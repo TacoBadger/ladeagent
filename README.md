@@ -70,10 +70,20 @@ Rapporten pr. kørsel (`evals/reports/<label>.md`) viser score pr. kategori, hve
 ### Resultater
 
 <!-- RESULTS:START -->
-Kør `make eval-all` (kræver `ANTHROPIC_API_KEY` i `.env`). Tabellen fra `evals/reports/summary.md` sættes ind her.
+Kør `make eval-all-cli` (Claude Code-abonnement) eller `make eval-all` (API-nøgle). Tabellen fra `evals/reports/summary.md` sættes ind her.
 <!-- RESULTS:END -->
 
 To prompts er med: `v1` er en naiv 6-linjers prompt, `v2` har regler for dataadgang, tidsangivelser, planer og injection. Forskellen mellem dem er pointen: den samme kode, samme data, samme spørgsmål, og et tal der viser om reglerne virker.
+
+## Test det uden API-nøgle (tre måder)
+
+Alt bortset fra selve agent-loopet kører uden nogen nøgle. Og agent-loopet kan køre på et almindeligt Claude-abonnement gennem Claude Code.
+
+1. **MCP Inspector, ingen model.** `make inspector` åbner en browser-side, hvor hvert tool kan kaldes med parametre, og skemaer og `readOnlyHint` kan ses. Prøv `find_cheapest_window` med `area=DK2, start=2026-09-14T22:00, end=2026-09-15T07:00, kwh=40, max_kw=11`, og prøv `area=SE3` for at se afvisningen.
+2. **Claude Desktop eller Claude Code som klient.** Kopiér `claude_desktop_config.example.json` ind i Claude Desktops konfiguration med den absolutte sti, eller i Claude Code: `claude mcp add ladeagent -- /sti/til/.venv/bin/python -m ladeagent.mcp_server`. Spørg derefter "Hvornår skal jeg lade i nat i DK2, 40 kWh, 11 kW?" og se tool-kaldene.
+3. **Agent og evals gennem Claude Code (abonnement).** `make ask-cli Q="..."` og `make eval-all-cli` kører nøjagtig samme systemprompt, tools og JSON-skema som API-varianten, men via `claude -p` med `--mcp-config` og `--json-schema`. Claude Code rapporterer selv pris og tokens pr. samtale, så rapporten får de samme kolonner. Kræver at `claude` er logget ind i den terminal, du kører fra.
+
+API-varianten (`make eval-all`) er den, der ville køre i drift og i CI. Den kræver `ANTHROPIC_API_KEY` i `.env` og koster i omegnen af 2 USD pr. Opus-kørsel af de 30 spørgsmål.
 
 ## Kom i gang
 
@@ -81,10 +91,10 @@ To prompts er med: `v1` er en naiv 6-linjers prompt, `v2` har regler for dataadg
 make setup        # venv + afhængigheder
 make test         # 15 deterministiske tests, ingen model, ingen netværk
 make golden       # regn facit (snapshottet er committet, så dette er valgfrit)
-cp .env.example .env   # læg ANTHROPIC_API_KEY i .env
-make ask Q="Hvornår skal jeg lade i nat? Jeg bor i Aarhus, 30 kWh, 11 kW."
-make eval PROMPT=v2 MODEL=claude-opus-5
-make eval-all && make report
+make ask-cli Q="Hvornår skal jeg lade i nat? Jeg bor i Aarhus, 30 kWh, 11 kW."   # via Claude Code
+make eval-all-cli && make report                                                  # via Claude Code
+# eller med API-nøgle i .env:
+make ask Q="..." && make eval-all && make report
 ```
 
 MCP-serveren mod Claude Code eller Claude Desktop:
@@ -127,7 +137,8 @@ Modellen vælges pr. kørsel (`--model`). Prisen pr. samtale regnes fra `usage` 
 
 ```
 ladeagent/          config.py (grænser, priser), data/eds.py (klient + snapshot), tools.py (5 read-tools),
-                    plans.py (write-tool + menneskelig godkendelse), mcp_server.py, agent.py, cli.py
+                    plans.py (write-tool + menneskelig godkendelse), mcp_server.py, agent.py (API),
+                    cli_backend.py (samme agent via Claude Code), cli.py
 evals/              make_golden.py, golden.jsonl, run_evals.py, prompts/v1.md, prompts/v2.md, reports/
 tests/              15 deterministiske tests (tools, grænser, MCP-annotations, HITL)
 data/snapshot/      frosne parquet-filer, 7.–15. sep 2026, DK1+DK2

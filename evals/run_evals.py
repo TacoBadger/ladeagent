@@ -62,7 +62,7 @@ def _approx(a, b, tol) -> bool:
     return abs(a - b) <= max(abs(b) * tol, 0.05)
 
 
-def score_case(case: dict, res: RunResult, judge: anthropic.Anthropic | None) -> dict:
+def score_case(case: dict, res: RunResult, judge) -> dict:
     parsed = res.parsed or {}
     answer = parsed.get("answer", "") if parsed else res.raw_text
     failures: list[str] = []
@@ -103,7 +103,7 @@ def score_case(case: dict, res: RunResult, judge: anthropic.Anthropic | None) ->
             if judge is None or not answer:
                 failures.append("judge ikke kørt")
                 continue
-            judge_result = run_judge(judge, case["question"], answer)
+            judge_result = judge(case["question"], answer)
             bad = [k for k in ("danish", "concise", "polite", "caveat_ok", "honest") if not judge_result.get(k)]
             if bad:
                 failures.append("judge: " + ", ".join(bad) + f" ({judge_result.get('comment', '')[:120]})")
@@ -139,7 +139,7 @@ def write_report(label: str, meta: dict, rows: list[dict]) -> Path:
     }
     (REPORTS / f"{label}.json").write_text(json.dumps({"summary": summary, "rows": rows}, ensure_ascii=False, indent=2))
     md = [f"# Eval-rapport: {label}", "",
-          f"Model `{meta['model']}` · prompt `{meta['prompt_version']}` · {meta['ran_at']} · snapshot {config.SNAPSHOT_START}–{config.SNAPSHOT_END}", "",
+          f"Model `{meta['model']}` · prompt `{meta['prompt_version']}` · backend `{meta.get('backend', 'api')}` · {meta['ran_at']} · snapshot {config.SNAPSHOT_START}–{config.SNAPSHOT_END}", "",
           "| Kategori | Bestået | Andel |", "|---|---|---|"]
     for c, (p, t) in per_cat.items():
         md.append(f"| {c} | {p}/{t} | {p / t:.0%} |")
@@ -167,11 +167,11 @@ def update_summary() -> None:
     rows = [json.loads(p.read_text())["summary"] for p in reports]
     cats = ["numeric", "no_data", "injection", "tone"]
     md = ["# Sammenligning af kørsler", "", "Alle kørsler går mod samme frosne snapshot og samme 30 spørgsmål, så forskellen er prompt og model, ikke data.", "",
-          "| Kørsel | Model | Prompt | " + " | ".join(cats) + " | Total | Pris/samtale | Latens |", "|---|---|---|" + "---|" * len(cats) + "---|---|---|"]
+          "| Kørsel | Model | Prompt | Backend | " + " | ".join(cats) + " | Total | Pris/samtale | Latens |", "|---|---|---|---|" + "---|" * len(cats) + "---|---|---|"]
     for s in rows:
         pc = s["per_category"]
         cells = [f"{pc[c]['passed']}/{pc[c]['total']}" if c in pc else "–" for c in cats]
-        md.append(f"| {s['label']} | {s['model']} | {s['prompt_version']} | " + " | ".join(cells) +
+        md.append(f"| {s['label']} | {s['model']} | {s['prompt_version']} | {s.get('backend', 'api')} | " + " | ".join(cells) +
                   f" | **{s['total_passed']}/{s['total']}** ({s['pass_rate']:.0%}) | ${s['mean_cost_usd']:.4f} | {s['mean_latency_s']} s |")
     (REPORTS / "summary.md").write_text("\n".join(md) + "\n")
 
@@ -183,25 +183,33 @@ def main() -> None:
     ap.add_argument("--label", default=None)
     ap.add_argument("--only", default=None, help="kategori eller case-id-præfiks, fx numeric eller inj_")
     ap.add_argument("--effort", default="medium")
+    ap.add_argument("--backend", choices=["api", "claude-cli"], default="api",
+                    help="api = Anthropic API (ANTHROPIC_API_KEY); claude-cli = headless Claude Code på abonnement, ingen nøgle")
     args = ap.parse_args()
-    label = args.label or f"{args.prompt}_{args.model}"
+    label = args.label or f"{args.prompt}_{args.model}" + ("_cli" if args.backend == "claude-cli" else "")
     cases = [json.loads(l) for l in GOLDEN.read_text().splitlines() if l.strip()]
     if args.only:
         cases = [c for c in cases if c["category"] == args.only or c["id"].startswith(args.only)]
     store = DataStore.from_snapshot()
-    client = anthropic.Anthropic()
-    agent = Agent(store, model=args.model, prompt_version=args.prompt, effort=args.effort,
-                  trace_file=config.TRACE_DIR / f"eval_{label}.jsonl", client=client)
+    if args.backend == "claude-cli":
+        from ladeagent.cli_backend import ClaudeCliAgent, judge_cli
+        agent = ClaudeCliAgent(store, model=args.model, prompt_version=args.prompt, trace_file=config.TRACE_DIR / f"eval_{label}.jsonl")
+        judge = lambda q, a: judge_cli(q, a, JUDGE_SCHEMA)  # noqa: E731
+    else:
+        client = anthropic.Anthropic()
+        agent = Agent(store, model=args.model, prompt_version=args.prompt, effort=args.effort,
+                      trace_file=config.TRACE_DIR / f"eval_{label}.jsonl", client=client)
+        judge = lambda q, a: run_judge(client, q, a)  # noqa: E731
     # plans.json fra evals må ikke forurene demoen
     config.PLANS_FILE.parent.mkdir(parents=True, exist_ok=True)
     rows = []
     t0 = time.time()
     for i, case in enumerate(cases, 1):
         res = agent.ask(case["question"])
-        row = score_case(case, res, client)
+        row = score_case(case, res, judge)
         rows.append(row)
         print(f"[{i:2d}/{len(cases)}] {'PASS' if row['passed'] else 'FAIL'} {case['id']:10s} ${row['cost_usd']:.4f} {row['latency_s']:5.1f}s  {'; '.join(row['failures'])[:110]}")
-    meta = {"model": args.model, "prompt_version": args.prompt, "effort": args.effort, "ran_at": time.strftime("%Y-%m-%d %H:%M"), "wall_s": round(time.time() - t0, 1)}
+    meta = {"model": args.model, "prompt_version": args.prompt, "effort": args.effort, "backend": args.backend, "ran_at": time.strftime("%Y-%m-%d %H:%M"), "wall_s": round(time.time() - t0, 1)}
     path = write_report(label, meta, rows)
     print(f"\nrapport: {path}\nsummary: {REPORTS / 'summary.md'}")
 

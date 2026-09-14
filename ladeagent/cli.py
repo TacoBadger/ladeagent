@@ -25,6 +25,7 @@ def main(argv: list[str] | None = None) -> int:
     a.add_argument("--model", default=config.DEFAULT_MODEL)
     a.add_argument("--prompt", default="v2")
     a.add_argument("--json", action="store_true", help="print hele det strukturerede svar")
+    a.add_argument("--backend", choices=["api", "claude-cli"], default="api", help="claude-cli = via Claude Code-abonnement, ingen API-nøgle")
     sub.add_parser("plans", help="vis alle ladeplaner")
     ap_ = sub.add_parser("approve", help="godkend en ladeplan (menneskelig handling)")
     ap_.add_argument("plan_id")
@@ -32,7 +33,11 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.cmd == "ask":
         store = DataStore.live() if args.live else DataStore.from_snapshot()
-        agent = Agent(store, model=args.model, prompt_version=args.prompt)
+        if args.backend == "claude-cli":
+            from ladeagent.cli_backend import ClaudeCliAgent
+            agent = ClaudeCliAgent(store, model=args.model, prompt_version=args.prompt)
+        else:
+            agent = Agent(store, model=args.model, prompt_version=args.prompt)
         res = agent.ask(args.question)
         if res.error:
             print(f"FEJL: {res.error}", file=sys.stderr)

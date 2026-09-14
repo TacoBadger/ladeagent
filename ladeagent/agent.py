@@ -85,9 +85,12 @@ class RunResult:
     latency_s: float = 0.0
     error: str | None = None
     stop_reason: str | None = None
+    cli_cost_usd: float | None = None  # sat af cli_backend (Claude Code rapporterer selv prisen)
 
     @property
     def cost_usd(self) -> float:
+        if self.cli_cost_usd is not None:
+            return self.cli_cost_usd
         return self.usage.cost_usd(self.model)
 
     def to_trace(self) -> dict:

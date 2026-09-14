@@ -1,4 +1,4 @@
-.PHONY: setup snapshot golden test mcp inspector ask eval eval-all report clean
+.PHONY: setup snapshot golden test mcp inspector ask ask-cli eval eval-cli eval-all eval-all-cli report clean
 PY=.venv/bin/python
 PROMPT?=v2
 MODEL?=claude-opus-5
@@ -33,6 +33,18 @@ eval-all:         ## de fire kørsler README'en sammenligner
 	$(PY) -m evals.run_evals --prompt v2 --model claude-opus-5
 	$(PY) -m evals.run_evals --prompt v2 --model claude-sonnet-5
 	$(PY) -m evals.run_evals --prompt v2 --model claude-haiku-4-5
+
+ask-cli:          ## spørg agenten via Claude Code-abonnement (ingen API-nøgle): make ask-cli Q="..."
+	$(PY) -m ladeagent.cli ask "$(Q)" --model $(MODEL) --prompt $(PROMPT) --backend claude-cli
+
+eval-cli:         ## evals via Claude Code-abonnement: make eval-cli PROMPT=v2 MODEL=claude-opus-5
+	$(PY) -m evals.run_evals --prompt $(PROMPT) --model $(MODEL) --backend claude-cli
+
+eval-all-cli:     ## de fire kørsler, via Claude Code-abonnement
+	$(PY) -m evals.run_evals --prompt v1 --model claude-opus-5 --backend claude-cli
+	$(PY) -m evals.run_evals --prompt v2 --model claude-opus-5 --backend claude-cli
+	$(PY) -m evals.run_evals --prompt v2 --model claude-sonnet-5 --backend claude-cli
+	$(PY) -m evals.run_evals --prompt v2 --model claude-haiku-4-5 --backend claude-cli
 
 report:           ## vis sammenligningen
 	@cat evals/reports/summary.md
