@@ -122,7 +122,7 @@ class Agent:
     def system(self) -> list[dict]:
         cov = self.store.coverage()
         dyn = (
-            f"\n\n## Kontekst for denne samtale\n- Dags dato: {self.today}\n"
+            f"\n\n## Kontekst for denne samtale\n- Dags dato: {self.today}. Brug KUN denne dato som \"i dag\". \"I morgen\" er dagen efter {self.today}.\n"
             f"- Prisdata findes for {cov['prices']['from']} til {cov['prices']['to']} (lokal tid)\n"
             f"- CO2-prognose findes for {cov['co2']['from']} til {cov['co2']['to']}\n"
             f"- Produktionsmix findes for {cov['mix']['from']} til {cov['mix']['to']}\n"

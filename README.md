@@ -70,11 +70,12 @@ Rapporten pr. kørsel (`evals/reports/<label>.md`) viser score pr. kategori, hve
 ### Resultater
 
 <!-- RESULTS:START -->
-Kørt 15. september 2026 via Claude Code (`make eval-all-cli`), samme snapshot og samme 30 spørgsmål i alle kørsler. Haiku 4.5 mangler (kørslen blev afbrudt af forbrugsgrænsen og køres igen).
+Kørt 15. september 2026 via Claude Code (`make eval-all-cli`), samme snapshot og samme 30 spørgsmål i alle kørsler.
 
 | Kørsel | Model | Prompt | Backend | numeric | no_data | injection | tone | Total | Pris/samtale | Latens |
 |---|---|---|---|---|---|---|---|---|---|---|
 | v1_claude-opus-5_cli | claude-opus-5 | v1 | claude-cli | 14/15 | 5/5 | 4/5 | 0/5 | **23/30** (77%) | $0.1024 | 20.3 s |
+| v2_claude-haiku-4-5_cli | claude-haiku-4-5 | v2 | claude-cli | 0/15 | 5/5 | 3/5 | 5/5 | **13/30** (43%) | $0.0217 | 18.21 s |
 | v2_claude-opus-5_cli | claude-opus-5 | v2 | claude-cli | 15/15 | 5/5 | 5/5 | 3/5 | **28/30** (93%) | $0.0853 | 15.1 s |
 | v2_claude-sonnet-5_cli | claude-sonnet-5 | v2 | claude-cli | 15/15 | 5/5 | 5/5 | 4/5 | **29/30** (97%) | $0.0408 | 16.17 s |
 
@@ -82,10 +83,11 @@ Det, tallene siger:
 
 - **Prompten er det, der flytter mest.** Fra v1 til v2 med samme model går scoren fra 23 til 28 af 30. v1 fejlede på én pris (num_08), kaldte write-tool'et på en prompt injection (inj_03) og fik 0 af 5 på tone, fordi den ikke nævner forbeholdet om spotpris. v2 har regler for begge dele.
 - **Sonnet 5 er lige så god som Opus 5 til det halve.** 29 mod 28 af 30, 4 cent mod 9 cent pr. samtale. Til drift er Sonnet valget, og det er et tal, ikke en fornemmelse.
-- **De sidste fejl er tone.** Dommeren (Haiku 4.5) er streng på "2 til 5 sætninger", og i tre tilfælde svarede dommeren selv ikke i JSON. Det er rettet (dommeren prøver igen én gang), og de tre cases køres igen.
+- **Haiku 4.5 er ikke god nok til denne opgave, og tallet skal læses med to forbehold.** I seks af femten talspørgsmål afleverede den slet ikke et struktureret svar og kaldte ingen tools. I resten fulgte den den rigtige dato fra Claude Codes systemoplysninger i stedet for snapshottets "i dag" i vores prompt, og regnede derfor på de forkerte døgn. Det andet er en fejl i testopstillingen, som er rettet (datoen står nu som ufravigelig i prompten), og Haiku køres igen. Det første er en reel svaghed ved den billigste model, som ingen prompt løser. Tone fik den til gengæld 5 af 5 på.
+- **De sidste fejl hos Opus og Sonnet er tone.** Dommeren (Haiku 4.5) er streng på "2 til 5 sætninger", og i tre tilfælde svarede dommeren selv ikke i JSON. Det er rettet (dommeren prøver igen én gang).
 - **Ingen model faldt for prompt injection med v2**, og ingen fandt på et tal, når data manglede.
 
-Hele rapporten pr. kørsel med hvert svar ligger i `evals/reports/`.
+Hele rapporten pr. kørsel med hvert svar ligger i `evals/reports/`. `python -m evals.rescore` scorer gamle kørsler igen, når scoringslogikken ændres, så alle kørsler altid er scoret ens.
 <!-- RESULTS:END -->
 
 To prompts er med: `v1` er en naiv 6-linjers prompt, `v2` har regler for dataadgang, tidsangivelser, planer og injection. Forskellen mellem dem er pointen: den samme kode, samme data, samme spørgsmål, og et tal der viser om reglerne virker.
@@ -147,6 +149,7 @@ Modellen vælges pr. kørsel (`--model`). Prisen pr. samtale regnes fra `usage` 
 - **ENTSO-E-nøglen lå på en gammel server.** Planen var ENTSO-E, som jeg har hentet fra i produktion siden foråret til et andet projekt. Nøglen lå i et fælles modul på serveren, ikke i miljøfilen, og jeg ville ikke bruge aftenen på at grave. Energi Data Service kræver ingen nøgle, er dansk og har CO2 og produktionsmix med. Et bedre valg til denne opgave, og en påmindelse om at "hvad kan faktisk læses programmatisk" er det første spørgsmål, ikke det sidste.
 - **Facit i hånden holder ikke.** Første udkast til golden-settet havde tal jeg selv havde regnet. Da jeg ændrede vinduet for "i nat" fra 22–06 til 22–07, var halvdelen forkerte. Nu regner `make_golden.py` facit fra data med de samme funktioner som tools, og et ændret snapshot giver et nyt, korrekt facit med én kommando.
 - **"I nat" er ikke et tidsrum.** Modellen valgte forskellige vinduer for det samme spørgsmål, og evals faldt tilfældigt. `v2`-prompten definerer "i nat" som kl. 22 til 07. Det er den slags aftaler, der skal stå ét sted og testes, ikke antages.
+- **Modellen får to datoer.** Når evals kører gennem Claude Code, fortæller Claude Code selv modellen dagens rigtige dato, mens vores prompt siger snapshottets dato. Opus og Sonnet fulgte prompten, Haiku fulgte systemet og regnede på de forkerte døgn. Nu står datoen som ufravigelig i prompten. Lærestreg: alt, der kan læses som "i dag", skal stå ét sted, og evals skal fange det.
 - **Strict tool use kræver `additionalProperties: false` og fuld `required`.** Ellers afviser API'et definitionen. Det er dokumenteret, men nemt at overse, og fejlen kommer først ved første kald.
 
 ## Hvordan det ville se ud hos DCC

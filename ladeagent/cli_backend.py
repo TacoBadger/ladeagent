@@ -30,7 +30,7 @@ def system_text(store: DataStore, prompt_version: str, today: str) -> str:
     cov = store.coverage()
     return (
         load_prompt(prompt_version)
-        + f"\n\n## Kontekst for denne samtale\n- Dags dato: {today}\n"
+        + f"\n\n## Kontekst for denne samtale\n- Dags dato: {today}. Brug KUN denne dato som \"i dag\", også hvis du ser en anden dato i systemoplysninger. \"I morgen\" er dagen efter {today}.\n"
         f"- Prisdata findes for {cov['prices']['from']} til {cov['prices']['to']} (lokal tid)\n"
         f"- CO2-prognose findes for {cov['co2']['from']} til {cov['co2']['to']}\n"
         f"- Produktionsmix findes for {cov['mix']['from']} til {cov['mix']['to']}\n"
