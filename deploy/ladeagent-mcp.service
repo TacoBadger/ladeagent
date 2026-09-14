@@ -1,0 +1,15 @@
+[Unit]
+Description=Ladeagent MCP server (Streamable HTTP, live data fra Energi Data Service)
+After=network.target
+
+[Service]
+WorkingDirectory=/root/ladeagent
+Environment=LADEAGENT_HOST=127.0.0.1
+Environment=LADEAGENT_PORT=8765
+Environment=LADEAGENT_PATH=/ladeagent/mcp
+ExecStart=/root/ladeagent/.venv/bin/python -m ladeagent.mcp_server --http --live
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

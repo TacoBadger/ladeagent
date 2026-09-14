@@ -2,6 +2,7 @@
 
 Kør:  python -m ladeagent.mcp_server            (stdio, til Claude Desktop / Claude Code / MCP Inspector)
       python -m ladeagent.mcp_server --live     (live data fra Energi Data Service i stedet for snapshot)
+      python -m ladeagent.mcp_server --http     (Streamable HTTP på 127.0.0.1:8765/ladeagent/mcp, til hosting bag nginx)
 
 Adgangsprincip:
   - Fem read-only tools (annotations.readOnlyHint = true).
@@ -109,4 +110,10 @@ def get_plan_status(plan_id: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run()  # stdio
+    import os
+    if "--http" in sys.argv:
+        # Hosted variant (Streamable HTTP) bag nginx/TLS, fx https://<domæne>/ladeagent/mcp
+        mcp.run(transport="http", host=os.getenv("LADEAGENT_HOST", "127.0.0.1"),
+                port=int(os.getenv("LADEAGENT_PORT", "8765")), path=os.getenv("LADEAGENT_PATH", "/ladeagent/mcp"))
+    else:
+        mcp.run()  # stdio
