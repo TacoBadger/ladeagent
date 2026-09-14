@@ -33,12 +33,23 @@ mcp = FastMCP(
 )
 
 _STORE: DataStore | None = None
+_LOADED_AT: float = 0.0
+LIVE_TTL_S = 30 * 60  # live data genindlæses hvert 30. minut, så morgendagens priser (kl. ~13) kommer med
 
 
 def store() -> DataStore:
-    global _STORE
-    if _STORE is None:
-        _STORE = DataStore.live() if "--live" in sys.argv else DataStore.from_snapshot()
+    global _STORE, _LOADED_AT
+    live = "--live" in sys.argv
+    import time
+    if _STORE is None or (live and time.time() - _LOADED_AT > LIVE_TTL_S):
+        try:
+            _STORE = DataStore.live() if live else DataStore.from_snapshot()
+            _LOADED_AT = time.time()
+        except Exception as e:  # noqa: BLE001  -- behold gamle data frem for at gå ned
+            if _STORE is None:
+                raise
+            print(f"live-genindlæsning fejlede, bruger data fra sidste hentning: {type(e).__name__}", file=sys.stderr)
+            _LOADED_AT = time.time()
     return _STORE
 
 
