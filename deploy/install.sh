@@ -2,7 +2,7 @@
 # Installerer/opdaterer ladeagenten på serveren. Idempotent: kan køres igen.
 #   ssh hetzner 'curl -sL https://raw.githubusercontent.com/TacoBadger/ladeagent/main/deploy/install.sh | bash'
 set -euo pipefail
-DOMAIN=${LADEAGENT_DOMAIN:-ladeagent.fontlume.com}
+DOMAIN=${LADEAGENT_DOMAIN:-fontlume.com}
 cd /root
 if [ -d ladeagent/.git ]; then cd ladeagent && git pull -q; else git clone -q https://github.com/TacoBadger/ladeagent && cd ladeagent; fi
 [ -d .venv ] || python3 -m venv .venv
