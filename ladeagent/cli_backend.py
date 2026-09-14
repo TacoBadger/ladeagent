@@ -133,8 +133,15 @@ class ClaudeCliAgent:
             f.write(json.dumps(d, ensure_ascii=False) + "\n")
 
 
-def judge_cli(question: str, answer: str, schema: dict, model: str = config.JUDGE_MODEL) -> dict:
-    """LLM-judge via Claude Code (samme rubrik som API-varianten)."""
+def judge_cli(question: str, answer: str, schema: dict, model: str = config.JUDGE_MODEL, _retry: bool = True) -> dict:
+    """LLM-judge via Claude Code (samme rubrik som API-varianten). Prøver igen én gang, hvis svaret ikke er JSON."""
+    out = _judge_cli_once(question, answer, schema, model)
+    if _retry and not all(k in out for k in ("danish", "concise", "polite", "caveat_ok", "honest")):
+        out = _judge_cli_once(question, answer, schema, model)
+    return out
+
+
+def _judge_cli_once(question: str, answer: str, schema: dict, model: str) -> dict:
     events, stderr = claude_cli([
         "-p", f"Kundens spørgsmål:\n{question}\n\nAssistentens svar:\n{answer}",
         "--output-format", "json", "--json-schema", json.dumps(schema),

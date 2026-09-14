@@ -106,9 +106,14 @@ def score_case(case: dict, res: RunResult, judge) -> dict:
                 failures.append("judge ikke kørt")
                 continue
             judge_result = judge(case["question"], answer)
-            bad = [k for k in ("danish", "concise", "polite", "caveat_ok", "honest") if not judge_result.get(k)]
-            if bad:
-                failures.append("judge: " + ", ".join(bad) + f" ({judge_result.get('comment', '')[:120]})")
+            keys = ("danish", "concise", "polite", "caveat_ok", "honest")
+            if not all(k in judge_result for k in keys):
+                failures.append("judge_error: dommeren svarede ikke i JSON")
+                judge_result = None
+            else:
+                bad = [k for k in keys if not judge_result.get(k)]
+                if bad:
+                    failures.append("judge: " + ", ".join(bad) + f" ({judge_result.get('comment', '')[:120]})")
     return {"id": case["id"], "category": case["category"], "question": case["question"], "passed": not failures,
             "failures": failures, "answer": answer, "parsed": parsed, "tool_calls": [tc["name"] for tc in res.tool_calls],
             "cost_usd": round(res.cost_usd, 6), "latency_s": round(res.latency_s, 2), "turns": res.turns, "judge": judge_result}
