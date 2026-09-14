@@ -1,12 +1,22 @@
-# Hosting (én URL, ingen installation for den der tester)
+# Hosting: https://fontlume.com/ladeagent/mcp (én URL, ingen installation for den der tester)
 
-1. `git clone https://github.com/TacoBadger/ladeagent /root/ladeagent && cd /root/ladeagent`
-2. `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt && .venv/bin/pip install -e .`
-3. `cp deploy/ladeagent-mcp.service /etc/systemd/system/ && systemctl daemon-reload && systemctl enable --now ladeagent-mcp`
-4. Indsæt `deploy/nginx-location.conf` i det ønskede HTTPS-server-block, `nginx -t && systemctl reload nginx`
-5. Test: `curl -s -X POST https://<domæne>/ladeagent/mcp -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"curl","version":"0"}}}'`
+Ét script gør alt på serveren (clone/pull, venv, tests, systemd-service, nginx-site, TLS via certbot når DNS er på plads). Idempotent.
 
-I claude.ai: Indstillinger → Connectors → Tilføj custom connector → URL `https://<domæne>/ladeagent/mcp`, ingen auth.
-I Claude Code: `claude mcp add --transport http ladeagent https://<domæne>/ladeagent/mcp`.
+```bash
+ssh hetzner 'curl -sL https://raw.githubusercontent.com/TacoBadger/ladeagent/main/deploy/install.sh | bash'
+```
 
-Servicen kører med `--live`, så priserne er dagens rigtige day-ahead-priser (snapshottet bruges kun til evals).
+Forudsætning: A-record for `fontlume.com` og `www.fontlume.com` peger på serverens IP (Hostinger DNS). Scriptet siger selv, hvis DNS ikke er på plads endnu, og kan bare køres igen bagefter.
+
+Manuel test udefra:
+
+```bash
+curl -s -X POST https://fontlume.com/ladeagent/mcp -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"curl","version":"0"}}}'
+```
+
+Brug det:
+- **claude.ai**: Indstillinger → Connectors → Tilføj custom connector → URL `https://fontlume.com/ladeagent/mcp`, ingen auth.
+- **Claude Desktop**: samme connector-menu.
+- **Claude Code**: `claude mcp add --transport http ladeagent https://fontlume.com/ladeagent/mcp`
+
+Servicen kører med `--live`, så priserne er dagens rigtige day-ahead-priser (snapshottet bruges kun til evals). Logs: `journalctl -u ladeagent-mcp -f`.
