@@ -6,7 +6,7 @@ After=network.target
 WorkingDirectory=/root/ladeagent
 Environment=LADEAGENT_HOST=127.0.0.1
 Environment=LADEAGENT_PORT=8765
-Environment=LADEAGENT_PATH=/ladeagent/mcp
+Environment=LADEAGENT_PATH=/mcp
 ExecStart=/root/ladeagent/.venv/bin/python -m ladeagent.mcp_server --http --live
 Restart=always
 RestartSec=3

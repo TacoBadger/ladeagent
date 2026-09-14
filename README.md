@@ -77,7 +77,7 @@ To prompts er med: `v1` er en naiv 6-linjers prompt, `v2` har regler for dataadg
 
 ## Prøv den på to minutter, uden at installere noget
 
-MCP-serveren er hostet på **`https://fontlume.com/ladeagent/mcp`** med dagens rigtige priser. I claude.ai eller Claude Desktop: Indstillinger → Connectors → Tilføj custom connector → indsæt URL'en (ingen login). Spørg derefter i en almindelig chat:
+MCP-serveren er hostet på **`https://ladeagent.fontlume.com/mcp`** med dagens rigtige priser. I claude.ai eller Claude Desktop: Indstillinger → Connectors → Tilføj custom connector → indsæt URL'en (ingen login). Spørg derefter i en almindelig chat:
 
 > Jeg bor i København og skal lade 40 kWh i nat med 11 kW. Hvornår er det billigst, og hvad koster det?
 
