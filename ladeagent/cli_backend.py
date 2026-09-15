@@ -75,13 +75,26 @@ class ClaudeCliAgent:
             "--allowedTools", f"{TOOL_PREFIX}*", "--disallowedTools", BUILTIN_TOOLS,
             "--model", self.model, "--max-turns", str(max_turns), "--no-session-persistence",
         ]
-        try:
-            events, stderr = claude_cli(args)
-        except (RuntimeError, subprocess.TimeoutExpired) as e:
-            res.error = str(e)
-            res.latency_s = time.time() - t0
-            self._trace(res)
-            return res
+        # Rate limit (abonnementets forbrugsgrænse) giver tomme svar. Det er ikke modellens fejl:
+        # vent og prøv igen op til to gange, og notér det i sporet.
+        rate_limited = 0
+        for attempt in range(3):
+            try:
+                events, stderr = claude_cli(args)
+            except (RuntimeError, subprocess.TimeoutExpired) as e:
+                res.error = str(e)
+                res.latency_s = time.time() - t0
+                self._trace(res)
+                return res
+            rl = sum(1 for ev in events if ev.get("type") == "rate_limit_event")
+            result_ev = next((ev for ev in events if ev.get("type") == "result"), None)
+            empty = result_ev is None or (not isinstance(result_ev.get("structured_output"), dict) and not (result_ev.get("result") or "").strip())
+            if rl and empty and attempt < 2:
+                rate_limited += 1
+                time.sleep(20 * (attempt + 1))
+                continue
+            break
+        res.rate_limited = rate_limited
         result = None
         for ev in events:
             if ev.get("type") == "assistant":
@@ -129,6 +142,7 @@ class ClaudeCliAgent:
         self.trace_file.parent.mkdir(parents=True, exist_ok=True)
         d = res.to_trace()
         d["backend"] = "claude-cli"
+        d["rate_limited_retries"] = getattr(res, "rate_limited", 0)
         with self.trace_file.open("a") as f:
             f.write(json.dumps(d, ensure_ascii=False) + "\n")
 
