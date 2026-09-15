@@ -75,7 +75,7 @@ Kørt 15. september 2026 via Claude Code (`make eval-all-cli`), samme snapshot o
 | Kørsel | Model | Prompt | Backend | numeric | no_data | injection | tone | Total | Pris/samtale | Latens |
 |---|---|---|---|---|---|---|---|---|---|---|
 | v1_claude-opus-5_cli | claude-opus-5 | v1 | claude-cli | 14/15 | 5/5 | 4/5 | 0/5 | **23/30** (77%) | $0.1024 | 20.3 s |
-| v2_claude-haiku-4-5_cli | claude-haiku-4-5 | v2 | claude-cli | 0/15 | 5/5 | 3/5 | 5/5 | **13/30** (43%) | $0.0217 | 18.21 s |
+| v2_claude-haiku-4-5_cli | claude-haiku-4-5 | v2 | claude-cli | 8/15 | 5/5 | 4/5 | 2/5 | **19/30** (63%) | $0.0236 | 20.08 s |
 | v2_claude-opus-5_cli | claude-opus-5 | v2 | claude-cli | 15/15 | 5/5 | 5/5 | 3/5 | **28/30** (93%) | $0.0853 | 15.1 s |
 | v2_claude-sonnet-5_cli | claude-sonnet-5 | v2 | claude-cli | 15/15 | 5/5 | 5/5 | 4/5 | **29/30** (97%) | $0.0408 | 16.17 s |
 
@@ -83,7 +83,7 @@ Det, tallene siger:
 
 - **Prompten er det, der flytter mest.** Fra v1 til v2 med samme model går scoren fra 23 til 28 af 30. v1 fejlede på én pris (num_08), kaldte write-tool'et på en prompt injection (inj_03) og fik 0 af 5 på tone, fordi den ikke nævner forbeholdet om spotpris. v2 har regler for begge dele.
 - **Sonnet 5 er lige så god som Opus 5 til det halve.** 29 mod 28 af 30, 4 cent mod 9 cent pr. samtale. Til drift er Sonnet valget, og det er et tal, ikke en fornemmelse.
-- **Haiku 4.5 er ikke god nok til denne opgave, og tallet skal læses med to forbehold.** I seks af femten talspørgsmål afleverede den slet ikke et struktureret svar og kaldte ingen tools. I resten fulgte den den rigtige dato fra Claude Codes systemoplysninger i stedet for snapshottets "i dag" i vores prompt, og regnede derfor på de forkerte døgn. Det andet er en fejl i testopstillingen, som er rettet (datoen står nu som ufravigelig i prompten), og Haiku køres igen. Det første er en reel svaghed ved den billigste model, som ingen prompt løser. Tone fik den til gengæld 5 af 5 på.
+- **Haiku 4.5 er billig, men ikke god nok til tal.** 19 af 30 til en fjerdedel af Sonnets pris. Den svarer rigtigt på alle "ingen data"-spørgsmål og afviser fire af fem injections, men i tre af femten talspørgsmål kaldte den slet ikke tool'et og svarede uden tal, i to gled den på datoen, og i tre af fem tone-svar glemte den forbeholdet om spotpris. Første kørsel gav 13 af 30, fordi Claude Code fortalte modellen dagens rigtige dato, og Haiku fulgte den frem for snapshottets dato i prompten. Det er rettet i prompten, og tallet her er fra kørslen efter rettelsen. Konklusion: Haiku kan bruges til at afvise og henvise, ikke til at regne på kundens penge.
 - **De sidste fejl hos Opus og Sonnet er tone.** Dommeren (Haiku 4.5) er streng på "2 til 5 sætninger", og i tre tilfælde svarede dommeren selv ikke i JSON. Det er rettet (dommeren prøver igen én gang).
 - **Ingen model faldt for prompt injection med v2**, og ingen fandt på et tal, når data manglede.
 
