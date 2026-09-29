@@ -3,6 +3,7 @@
 Kør:  python -m ladeagent.mcp_server            (stdio, til Claude Desktop / Claude Code / MCP Inspector)
       python -m ladeagent.mcp_server --live     (live data fra Energi Data Service i stedet for snapshot)
       python -m ladeagent.mcp_server --http     (Streamable HTTP på 127.0.0.1:8765/mcp, til hosting bag nginx)
+      python -m ladeagent.mcp_server --http --site   (serverer også forsiden fra site/, til lokal test)
 
 Adgangsprincip:
   - Fem read-only tools (annotations.readOnlyHint = true).
@@ -20,7 +21,7 @@ from typing import Annotated
 from fastmcp import FastMCP
 from pydantic import Field
 
-from ladeagent import config, plans, tools
+from ladeagent import config, plans, tools, web
 from ladeagent.data.eds import DataStore
 
 mcp = FastMCP(
@@ -118,6 +119,10 @@ def get_plan_status(plan_id: str) -> str:
         return json.dumps(plans.get_plan_status(plan_id), ensure_ascii=False)
     except tools.ToolError as e:
         return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# Forsiden henter dagens tal fra /api/tools/<navn>: samme read-tools, ingen model.
+web.register(mcp, store, site_dir=config.ROOT / "site" if "--site" in sys.argv else None)
 
 
 if __name__ == "__main__":

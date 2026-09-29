@@ -21,15 +21,35 @@ curl -s -o /dev/null -w "local mcp initialize: HTTP %{http_code}\n" -X POST http
   -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
   -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"curl","version":"0"}}}'
 
-# 2) nginx-site for domænet (kun hvis den ikke findes; certbot skriver selv TLS-delen bagefter)
-if [ ! -f /etc/nginx/sites-available/$DOMAIN ]; then
-  sed "s/__DOMAIN__/$DOMAIN/g" deploy/nginx-site.conf > /etc/nginx/sites-available/$DOMAIN
-  ln -sf /etc/nginx/sites-available/$DOMAIN /etc/nginx/sites-enabled/$DOMAIN
-fi
-nginx -t && systemctl reload nginx
-echo "nginx: ok"
+# 2) Forsiden: statiske filer fra site/. nginx kan ikke læse /root, så de kopieres til /var/www.
+rm -rf /var/www/ladeagent.new
+cp -r site /var/www/ladeagent.new
+chmod -R a+rX /var/www/ladeagent.new
+rm -rf /var/www/ladeagent.old
+[ -d /var/www/ladeagent ] && mv /var/www/ladeagent /var/www/ladeagent.old
+mv /var/www/ladeagent.new /var/www/ladeagent
+rm -rf /var/www/ladeagent.old
+echo "forside: $(find /var/www/ladeagent -type f | wc -l) filer i /var/www/ladeagent"
 
-# 3) TLS, når DNS peger på denne server
+# 3) nginx-site for domænet. Skrives fra repoet hver gang. Den gamle fil gemmes,
+#    og den kommer tilbage, hvis den nye ikke består nginx -t.
+SITE=/etc/nginx/sites-available/$DOMAIN
+if [ -d /etc/letsencrypt/live/$DOMAIN ]; then TEMPLATE=deploy/nginx-site-tls.conf; else TEMPLATE=deploy/nginx-site.conf; fi
+[ -f $SITE ] && cp $SITE $SITE.bak
+sed "s/__DOMAIN__/$DOMAIN/g" $TEMPLATE > $SITE
+ln -sf $SITE /etc/nginx/sites-enabled/$DOMAIN
+if nginx -t 2>/tmp/ladeagent-nginx-test.log; then
+  systemctl reload nginx
+  echo "nginx: ok ($TEMPLATE)"
+else
+  cat /tmp/ladeagent-nginx-test.log
+  if [ -f $SITE.bak ]; then cp $SITE.bak $SITE; else rm -f $SITE /etc/nginx/sites-enabled/$DOMAIN; fi
+  nginx -t && systemctl reload nginx
+  echo "nginx: den nye konfiguration fejlede, den gamle er lagt tilbage. Intet er ændret udadtil."
+  exit 1
+fi
+
+# 4) TLS, når DNS peger på denne server
 MYIP=$(curl -s -4 ifconfig.me)
 DNSIP=$(dig +short A $DOMAIN | tail -1)
 if [ "$DNSIP" = "$MYIP" ]; then
@@ -40,7 +60,9 @@ if [ "$DNSIP" = "$MYIP" ]; then
   curl -s -o /dev/null -w "public mcp initialize: HTTP %{http_code}\n" -X POST https://$DOMAIN/mcp \
     -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
     -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"curl","version":"0"}}}'
-  echo "KLAR: https://$DOMAIN/mcp"
+  curl -s -o /dev/null -w "public forside: HTTP %{http_code}\n" https://$DOMAIN/
+  curl -s -o /dev/null -w "public api status: HTTP %{http_code}\n" https://$DOMAIN/api/status
+  echo "KLAR: https://$DOMAIN/ og https://$DOMAIN/mcp"
 else
   echo "DNS for $DOMAIN peger på '$DNSIP', serveren er $MYIP. Tilføj A-record for '$DOMAIN' hos Hostinger der peger på $MYIP og kør scriptet igen for TLS."
 fi
