@@ -773,7 +773,7 @@ footer{background:var(--night);color:var(--on-night-muted);border-top:1px solid 
     const now = b0 === s0;
     a.className = "answer";
     a.innerHTML = `<h2>${now ? "Billigst er at starte nu, " : "Billigst " + esc(dayWord(b0)) + " "}<b>${span(b0, b1)}</b></h2>` +
-      `<p>${kr(win.kwh, win.kwh % 1 ? 1 : 0)} kWh med ${kr(win.max_kw, win.max_kw % 1 ? 1 : 0)} kW tager ${win.hours_needed} ${win.hours_needed === 1 ? "time" : "timer"}. Søgt fra ${esc(dayWord(s0))} kl. ${hh(s0)} til ${esc(dayWord(toMs(win.search_end) - 1))} kl. ${hh(toMs(win.search_end))}.</p>`;
+      `<p>${kr(win.kwh, win.kwh % 1 ? 1 : 0)} kWh med ${kr(win.max_kw, win.max_kw % 1 ? 1 : 0)} kW tager ${win.hours_needed} ${win.hours_needed === 1 ? "time" : "timer"}. Søgt fra ${esc(dayWord(s0))} kl. ${hh(s0)} til ${hh(toMs(win.search_end)) === "00" ? "midnat" : esc(dayWord(toMs(win.search_end))) + " kl. " + hh(toMs(win.search_end))}.</p>`;
     const cells = [
       ["Pris i spot", `${kr(win.best_window.cost_dkk)} kr.`, `${kr(win.best_window.avg_dkk_per_kwh)} pr. kWh`],
       now ? ["Mod det dyreste tidsrum", `${kr(win.savings_vs_worst_dkk)} kr.`, "sparet"] : ["Mod at starte nu", `${kr(win.savings_vs_now_dkk)} kr.`, "sparet"],
@@ -829,7 +829,7 @@ footer{background:var(--night);color:var(--on-night-muted);border-top:1px solid 
       const target = midnight + (hour < 4 ? 7 : 31) * HOUR;   // frem til kl. 07 næste morgen
       state.today = now; state.start = now; state.end = Math.min(target, dataEnd);
       if (state.end <= state.start) throw new Error("ingen data");
-      setLive(true, state.end < target ? "Live. Priserne for i morgen kommer ca. kl. 13" : "Live fra serveren");
+      setLive(true, state.end >= target ? "Live fra serveren" : hour < 13 ? "Live. Priserne for i morgen kommer ca. kl. 13" : "Live. Priserne for i morgen er på vej");
       await refresh(true);
     } catch (e) { showFallback(); }
   }

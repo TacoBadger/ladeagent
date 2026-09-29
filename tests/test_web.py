@@ -53,3 +53,37 @@ def test_http_routes_are_mounted_next_to_mcp():
         assert client.post("/api/tools/get_day_ahead_prices").status_code == 405
         status = client.get("/api/status").json()
         assert status["read_tools"] == list(tools.READ_TOOLS) and status["coverage"]["prices"]["from"]
+
+
+def test_live_store_asks_the_source_every_time_and_falls_back_to_last_good(monkeypatch, tmp_path):
+    """Cachen har samme nøgle hele døgnet. Live skal derfor hente igen, ellers mangler morgendagens priser."""
+    import requests
+    from ladeagent import config
+    from ladeagent.data import eds
+
+    monkeypatch.setattr(config, "CACHE_DIR", tmp_path)
+    calls = []
+
+    class Reply:
+        def __init__(self, hour): self.hour = hour
+        def raise_for_status(self): pass
+        def json(self):
+            return {"records": [{"PriceArea": "DK2", "TimeDK": f"2026-09-29T{self.hour}:00:00", "Minutes5DK": f"2026-09-29T{self.hour}:00:00",
+                                 "DayAheadPriceDKK": 1000.0, "DayAheadPriceEUR": 134.0, "CO2Emission": 50.0,
+                                 "OffshoreWindPower": 1.0, "OnshoreWindPower": 1.0, "SolarPower": 1.0,
+                                 "ProductionGe100MW": 1.0, "ProductionLt100MW": 1.0}]}
+
+    def get(url, params, timeout):
+        calls.append(url)
+        return Reply("10" if len(calls) <= 3 else "23")
+
+    monkeypatch.setattr(eds.requests, "get", get)
+    assert eds.DataStore.live().coverage()["prices"]["to"].endswith("T10:00:00")
+    assert eds.DataStore.live().coverage()["prices"]["to"].endswith("T23:00:00")   # nyt kald, nye data
+    assert len(calls) == 6
+
+    def down(url, params, timeout):
+        raise requests.ConnectionError("nede")
+
+    monkeypatch.setattr(eds.requests, "get", down)
+    assert eds.DataStore.live().coverage()["prices"]["to"].endswith("T23:00:00")   # sidste gode hentning

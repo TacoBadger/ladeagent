@@ -114,7 +114,7 @@ API-varianten (`make eval-all`) er den, der ville køre i drift og i CI. Den kr�
 
 ```bash
 make setup        # venv + afhængigheder
-make test         # 25 deterministiske tests, ingen model, ingen netværk
+make test         # 26 deterministiske tests, ingen model, ingen netværk
 make golden       # regn facit (snapshottet er committet, så dette er valgfrit)
 make ask-cli Q="Hvornår skal jeg lade i nat? Jeg bor i Aarhus, 30 kWh, 11 kW."   # via Claude Code
 make eval-all-cli && make report                                                  # via Claude Code
@@ -166,7 +166,7 @@ ladeagent/          config.py (grænser, priser), data/eds.py (klient + snapshot
                     plans.py (write-tool + menneskelig godkendelse), mcp_server.py, agent.py (API),
                     cli_backend.py (samme agent via Claude Code), cli.py
 evals/              make_golden.py, golden.jsonl, run_evals.py, prompts/v1.md, prompts/v2.md, reports/
-tests/              25 deterministiske tests (tools, grænser, MCP-annotations, HITL, forsidens endpoints)
+tests/              26 deterministiske tests (tools, grænser, MCP-annotations, HITL, forsidens endpoints)
 site/               forsiden på fontlume.com (statisk, henter tal fra /api/tools)
 data/snapshot/      frosne parquet-filer, 7.–15. sep 2026, DK1+DK2
 traces/             én JSONL-linje pr. samtale

@@ -34,20 +34,28 @@ echo "forside: $(find /var/www/ladeagent -type f | wc -l) filer i /var/www/ladea
 # 3) nginx-site for domænet. Skrives fra repoet hver gang. Den gamle fil gemmes,
 #    og den kommer tilbage, hvis den nye ikke består nginx -t.
 SITE=/etc/nginx/sites-available/$DOMAIN
-if [ -d /etc/letsencrypt/live/$DOMAIN ]; then TEMPLATE=deploy/nginx-site-tls.conf; else TEMPLATE=deploy/nginx-site.conf; fi
-[ -f $SITE ] && cp $SITE $SITE.bak
-sed "s/__DOMAIN__/$DOMAIN/g" $TEMPLATE > $SITE
-ln -sf $SITE /etc/nginx/sites-enabled/$DOMAIN
-if nginx -t 2>/tmp/ladeagent-nginx-test.log; then
-  systemctl reload nginx
-  echo "nginx: ok ($TEMPLATE)"
-else
-  cat /tmp/ladeagent-nginx-test.log
-  if [ -f $SITE.bak ]; then cp $SITE.bak $SITE; else rm -f $SITE /etc/nginx/sites-enabled/$DOMAIN; fi
-  nginx -t && systemctl reload nginx
-  echo "nginx: den nye konfiguration fejlede, den gamle er lagt tilbage. Intet er ændret udadtil."
-  exit 1
-fi
+CERT=/etc/letsencrypt/live/$DOMAIN/fullchain.pem
+write_nginx() {
+  local template=deploy/nginx-site.conf www=""
+  if [ -f $CERT ]; then
+    template=deploy/nginx-site-tls.conf
+    if openssl x509 -in $CERT -noout -text | grep -q "DNS:www.$DOMAIN"; then www=" www.$DOMAIN"; fi
+  fi
+  [ -f $SITE ] && cp $SITE $SITE.bak
+  sed -e "s/__DOMAIN____WWW__/$DOMAIN$www/g" -e "s/__DOMAIN__/$DOMAIN/g" $template > $SITE
+  ln -sf $SITE /etc/nginx/sites-enabled/$DOMAIN
+  if nginx -t 2>/tmp/ladeagent-nginx-test.log; then
+    systemctl reload nginx
+    echo "nginx: ok ($template,$( [ -n "$www" ] && echo " med www" || echo " uden www"))"
+  else
+    cat /tmp/ladeagent-nginx-test.log
+    if [ -f $SITE.bak ]; then cp $SITE.bak $SITE; else rm -f $SITE /etc/nginx/sites-enabled/$DOMAIN; fi
+    nginx -t && systemctl reload nginx
+    echo "nginx: den nye konfiguration fejlede, den gamle er lagt tilbage. Intet er ændret udadtil."
+    exit 1
+  fi
+}
+write_nginx
 
 # 4) TLS, når DNS peger på denne server
 MYIP=$(curl -s -4 ifconfig.me)
@@ -56,12 +64,26 @@ if [ "$DNSIP" = "$MYIP" ]; then
   if [ ! -d /etc/letsencrypt/live/$DOMAIN ]; then
     certbot --nginx -d $DOMAIN --non-interactive --agree-tos --redirect -m theispfrost@gmail.com
   fi
+  # www: når www peger på serveren, og certifikatet ikke dækker det endnu, udvides certifikatet
+  WWWIP=$(dig +short A www.$DOMAIN | tail -1)
+  if [ "$WWWIP" = "$MYIP" ] && ! openssl x509 -in $CERT -noout -text | grep -q "DNS:www.$DOMAIN"; then
+    if certbot certonly --nginx --cert-name $DOMAIN -d $DOMAIN -d www.$DOMAIN --expand --non-interactive --agree-tos -m theispfrost@gmail.com; then
+      write_nginx
+    else
+      echo "www: certifikatet kunne ikke udvides. $DOMAIN virker som før. Kør scriptet igen senere."
+    fi
+  elif [ "$WWWIP" != "$MYIP" ]; then
+    echo "www: www.$DOMAIN peger på '$WWWIP', ikke på serveren. Springes over."
+  fi
   echo "TLS: ok"
   curl -s -o /dev/null -w "public mcp initialize: HTTP %{http_code}\n" -X POST https://$DOMAIN/mcp \
     -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
     -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"curl","version":"0"}}}'
   curl -s -o /dev/null -w "public forside: HTTP %{http_code}\n" https://$DOMAIN/
   curl -s -o /dev/null -w "public api status: HTTP %{http_code}\n" https://$DOMAIN/api/status
+  if openssl x509 -in $CERT -noout -text | grep -q "DNS:www.$DOMAIN"; then
+    curl -s -o /dev/null -w "public www: HTTP %{http_code} -> %{redirect_url}\n" https://www.$DOMAIN/
+  fi
   echo "KLAR: https://$DOMAIN/ og https://$DOMAIN/mcp"
 else
   echo "DNS for $DOMAIN peger på '$DNSIP', serveren er $MYIP. Tilføj A-record for '$DOMAIN' hos Hostinger der peger på $MYIP og kør scriptet igen for TLS."

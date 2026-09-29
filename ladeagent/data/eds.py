@@ -130,10 +130,20 @@ class DataStore:
         today = date.today()
         start = (today - timedelta(days=days_back)).isoformat()
         end = (today + timedelta(days=days_forward)).isoformat()
+        # Live betyder et nyt kald hver gang. Cachen har samme nøgle hele døgnet, så med cache
+        # ville morgendagens priser (kl. ~13) først komme med efter midnat.
+        def fresh(name: str) -> list[dict]:
+            try:
+                return fetch_records(config.DATASETS[name], start, end, areas, use_cache=False)
+            except (requests.RequestException, KeyError, ValueError):
+                if _cache_path(config.DATASETS[name], start, end, areas).exists():
+                    return fetch_records(config.DATASETS[name], start, end, areas)  # sidste gode hentning
+                raise
+
         return cls(
-            prices=prices_frame(fetch_records(config.DATASETS["prices"], start, end, areas)),
-            co2=co2_frame(fetch_records(config.DATASETS["co2"], start, end, areas)),
-            mix=mix_frame(fetch_records(config.DATASETS["mix"], start, end, areas)),
+            prices=prices_frame(fresh("prices")),
+            co2=co2_frame(fresh("co2")),
+            mix=mix_frame(fresh("mix")),
             source="live",
         )
 
