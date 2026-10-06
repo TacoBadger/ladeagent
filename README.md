@@ -1,5 +1,7 @@
 # Ladeagent
 
+[![tests](https://github.com/TacoBadger/ladeagent/actions/workflows/tests.yml/badge.svg)](https://github.com/TacoBadger/ladeagent/actions/workflows/tests.yml)
+
 *En kundeservice-agent for elkunder med ladeboks eller varmepumpe, bygget som svar på DCC Energis opslag om en AI Lead. Ikke et pilotprojekt: MCP-server, agent, evals, omkostningstal og menneske i loopet, i ét repo der kan køres på ti minutter.*
 
 Bygget af Theis Parker Frost, september 2026. Data fra Energinet's Energi Data Service (ingen nøgle nødvendig).
@@ -111,6 +113,8 @@ Alt bortset fra selve agent-loopet kører uden nogen nøgle. Og agent-loopet kan
 API-varianten (`make eval-all`) er den, der ville køre i drift og i CI. Den kræver `ANTHROPIC_API_KEY` i `.env` og koster i omegnen af 2 USD pr. Opus-kørsel af de 30 spørgsmål.
 
 ## Kom i gang
+
+Testene kører automatisk ved hver ændring (GitHub Actions). Evals er ikke med i CI endnu.
 
 ```bash
 make setup        # venv + afhængigheder
