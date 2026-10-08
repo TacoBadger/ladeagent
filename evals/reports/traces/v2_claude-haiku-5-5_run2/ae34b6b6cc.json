@@ -1,0 +1,534 @@
+{
+ "trace_id": "ae34b6b6cc",
+ "run_id": "ae34b6b6cc",
+ "ts": "2026-10-08T17:53:04",
+ "model": "claude-haiku-5-5",
+ "prompt_version": "v2",
+ "backend": "claude-cli",
+ "question": "Kan du kort forklare hvad DK1 og DK2 betyder for min elpris?",
+ "parsed": {
+  "answer": "DK1 og DK2 er de to prisområder i Danmark. DK1 dækker Jylland og Fyn, og DK2 dækker Sjælland, øerne og København. Spotprisen sættes for hvert område time for time, og den kan være forskellig mellem områderne, især når forbindelserne mellem dem er tæt på kapacitetsgrænsen. Dermed kan din elpris afhænge af hvilket område du bor i. Fortæl mig gerne hvilket område du er i, hvis du vil have en konkret prisvurdering.",
+  "answer_type": "no_data",
+  "area": null,
+  "window_start": null,
+  "window_end": null,
+  "cost_dkk": null,
+  "savings_dkk": null,
+  "plan_id": null,
+  "caveats": [
+   "Forklaringen er generel og bygger ikke på tool-data, så der er ingen konkrete priser.",
+   "Spotpriser er ekskl. nettarif, elafgift og moms."
+  ]
+ },
+ "raw_text": "{\"answer\": \"DK1 og DK2 er de to prisområder i Danmark. DK1 dækker Jylland og Fyn, og DK2 dækker Sjælland, øerne og København. Spotprisen sættes for hvert område time for time, og den kan være forskellig mellem områderne, især når forbindelserne mellem dem er tæt på kapacitetsgrænsen. Dermed kan din elpris afhænge af hvilket område du bor i. Fortæl mig gerne hvilket område du er i, hvis du vil have en konkret prisvurdering.\", \"answer_type\": \"no_data\", \"area\": null, \"window_start\": null, \"window_end\": null, \"cost_dkk\": null, \"savings_dkk\": null, \"plan_id\": null, \"caveats\": [\"Forklaringen er generel og bygger ikke på tool-data, så der er ingen konkrete priser.\", \"Spotpriser er ekskl. nettarif, elafgift og moms.\"]}",
+ "tool_calls": [],
+ "turns": 2,
+ "usage": {
+  "input_tokens": 2,
+  "output_tokens": 1371,
+  "cache_read": 17892,
+  "cache_write": 4083
+ },
+ "cost_usd": 0.001375,
+ "cost_dkk": 0.0095,
+ "cli_cost_usd": 0.084061,
+ "latency_s": 9.39,
+ "stop_reason": "tool_use",
+ "cap_hit": null,
+ "error": null,
+ "system_sha256": "ad9577a9e7c3f7f88cfa74811ad25eff6cb02c28ccbc776e57ccac94dac41db7",
+ "data_sha256": "7df8043128c7b2bf0136b74a119240fe697744c3cb11575151ed89c79b277534",
+ "data_source": "snapshot",
+ "caps": {
+  "max_cost_dkk": 2.0,
+  "max_tool_calls": 10
+ },
+ "events": [
+  {
+   "type": "system",
+   "subtype": "hook_started",
+   "hook_id": "c5fcc240-a90c-4e11-b9de-495b5c9bfbb9",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "uuid": "4c05bd19-0839-4120-afd2-a1283c39519d",
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de"
+  },
+  {
+   "type": "system",
+   "subtype": "hook_response",
+   "hook_id": "c5fcc240-a90c-4e11-b9de-495b5c9bfbb9",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "output": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stdout": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stderr": "",
+   "exit_code": 0,
+   "outcome": "success",
+   "uuid": "d6ea6018-1531-4ca7-9150-ec3b3a6b4e77",
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de"
+  },
+  {
+   "type": "system",
+   "subtype": "init",
+   "cwd": "~/Desktop/ladeagent",
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "tools": [
+    "Artifact",
+    "ArtifactComments",
+    "ArtifactData",
+    "CronCreate",
+    "CronDelete",
+    "CronList",
+    "DesignSync",
+    "EnterWorktree",
+    "ExitWorktree",
+    "ListAgents",
+    "ListMcpResourcesTool",
+    "Monitor",
+    "PushNotification",
+    "ReadMcpResourceDirTool",
+    "ReadMcpResourceTool",
+    "RemoteTrigger",
+    "ReportFindings",
+    "ScheduleWakeup",
+    "SendMessage",
+    "Skill",
+    "StructuredOutput",
+    "TaskOutput",
+    "TaskStop",
+    "ToolSearch",
+    "Workflow",
+    "mcp__ladeagent__create_charging_plan",
+    "mcp__ladeagent__estimate_cost",
+    "mcp__ladeagent__find_cheapest_window",
+    "mcp__ladeagent__get_co2_intensity",
+    "mcp__ladeagent__get_day_ahead_prices",
+    "mcp__ladeagent__get_generation_mix",
+    "mcp__ladeagent__get_plan_status"
+   ],
+   "mcp_servers": [
+    {
+     "name": "ladeagent",
+     "status": "connected"
+    }
+   ],
+   "model": "claude-haiku-5-5",
+   "permissionMode": "default",
+   "slash_commands": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator",
+    "advisor",
+    "agents",
+    "auto-mode-setup",
+    "autocompact",
+    "clear",
+    "color",
+    "compact",
+    "config",
+    "output-style",
+    "context",
+    "effort",
+    "fast",
+    "heapdump",
+    "init",
+    "mcp",
+    "import",
+    "model",
+    "__remote-workflow",
+    "workflow-launch-exec",
+    "reload-plugins",
+    "reload-skills",
+    "rename",
+    "ultrareview",
+    "security-review",
+    "usage-credits",
+    "extra-usage",
+    "usage",
+    "insights",
+    "recap",
+    "skill-doctor",
+    "goal",
+    "design-consent",
+    "design-revoke",
+    "list-agents",
+    "team-onboarding"
+   ],
+   "terminal_slash_commands": [
+    "doctor",
+    "color",
+    "reload-plugins"
+   ],
+   "apiKeySource": "none",
+   "claude_code_version": "2.1.271",
+   "output_style": "default",
+   "agents": [
+    "claude",
+    "claude-code-guide",
+    "Explore",
+    "general-purpose",
+    "Plan",
+    "statusline-setup"
+   ],
+   "skills": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator"
+   ],
+   "capabilities": [
+    "interrupt_receipt_v1",
+    "interrupt_cancel_queued_v1",
+    "msg_lifecycle_v1"
+   ],
+   "analytics_disabled": false,
+   "product_feedback_disabled": false,
+   "uuid": "684f8704-5a69-449d-bf39-59efd7b614c2",
+   "messaging_socket_path": "/tmp/cc-socks/71094.sock",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 50,
+   "estimated_tokens_delta": 50,
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "uuid": "8e319e24-8b15-40ec-852d-5ac9aafa7598"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 250,
+   "estimated_tokens_delta": 200,
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "uuid": "b15da068-20ea-44a2-b83a-236c4a2b6049"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 450,
+   "estimated_tokens_delta": 200,
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "uuid": "a5b6070f-3575-4434-b6a3-23daeecdf193"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 650,
+   "estimated_tokens_delta": 200,
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "uuid": "978cc552-09ff-423e-8505-c2a9d927b36c"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 800,
+   "estimated_tokens_delta": 150,
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "uuid": "b14412fc-0631-4893-95ce-c014da0d2595"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-haiku-5-5",
+    "id": "msg_011Cfq3DEPHHRjxa3SSm3cVn",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "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"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4083,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4083
+     },
+     "output_tokens": 6,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "uuid": "3b205995-f46d-457e-a24c-23031dd7b2bd",
+   "timestamp": "2026-10-08T15:53:01.426Z",
+   "request_id": "req_011Cfq3DE9tWnxfKKWdzQdnW"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-haiku-5-5",
+    "id": "msg_011Cfq3DEPHHRjxa3SSm3cVn",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01Madw8mtw5GA3uxmfKNBBeC",
+      "name": "StructuredOutput",
+      "input": {
+       "answer": "DK1 og DK2 er de to prisområder i Danmark. DK1 dækker Jylland og Fyn, og DK2 dækker Sjælland, øerne og København. Spotprisen sættes for hvert område time for time, og den kan være forskellig mellem områderne, især når forbindelserne mellem dem er tæt på kapacitetsgrænsen. Dermed kan din elpris afhænge af hvilket område du bor i. Fortæl mig gerne hvilket område du er i, hvis du vil have en konkret prisvurdering.",
+       "answer_type": "no_data",
+       "area": null,
+       "window_start": null,
+       "window_end": null,
+       "cost_dkk": null,
+       "savings_dkk": null,
+       "plan_id": null,
+       "caveats": [
+        "Forklaringen er generel og bygger ikke på tool-data, så der er ingen konkrete priser.",
+        "Spotpriser er ekskl. nettarif, elafgift og moms."
+       ]
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4083,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4083
+     },
+     "output_tokens": 6,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "uuid": "ccedb866-fcd8-4553-9ba2-426366af6bd1",
+   "timestamp": "2026-10-08T15:53:03.405Z",
+   "request_id": "req_011Cfq3DE9tWnxfKKWdzQdnW",
+   "wire_tool_inputs": {
+    "toolu_01Madw8mtw5GA3uxmfKNBBeC": {
+     "answer": "DK1 og DK2 er de to prisområder i Danmark. DK1 dækker Jylland og Fyn, og DK2 dækker Sjælland, øerne og København. Spotprisen sættes for hvert område time for time, og den kan være forskellig mellem områderne, især når forbindelserne mellem dem er tæt på kapacitetsgrænsen. Dermed kan din elpris afhænge af hvilket område du bor i. Fortæl mig gerne hvilket område du er i, hvis du vil have en konkret prisvurdering.",
+     "answer_type": "no_data",
+     "area": null,
+     "window_start": null,
+     "window_end": null,
+     "cost_dkk": null,
+     "savings_dkk": null,
+     "plan_id": null,
+     "caveats": [
+      "Forklaringen er generel og bygger ikke på tool-data, så der er ingen konkrete priser.",
+      "Spotpriser er ekskl. nettarif, elafgift og moms."
+     ]
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_01Madw8mtw5GA3uxmfKNBBeC",
+      "type": "tool_result",
+      "content": "Structured output provided successfully"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "uuid": "53560434-e8d9-449b-bf6e-22a8c3d16488",
+   "timestamp": "2026-10-08T15:53:03.410Z",
+   "tool_use_result": "Structured output provided successfully"
+  },
+  {
+   "type": "rate_limit_event",
+   "rate_limit_info": {
+    "status": "allowed",
+    "resetsAt": 1791485400,
+    "rateLimitType": "five_hour",
+    "overageStatus": "rejected",
+    "overageDisabledReason": "org_level_disabled",
+    "isUsingOverage": false,
+    "unifiedWindows": {
+     "five_hour": {
+      "utilization": 0.33,
+      "resetsAt": 1791485400
+     },
+     "seven_day": {
+      "utilization": 0.5,
+      "resetsAt": 1791583200
+     }
+    }
+   },
+   "uuid": "01812ff5-a83d-4990-98df-02fb6a9be5be",
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de"
+  },
+  {
+   "duration_api_ms": 7670,
+   "stop_reason": "tool_use",
+   "session_id": "bbf7dfa8-3246-43de-a3d3-cfb20d5081de",
+   "total_cost_usd": 0.084061,
+   "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 4083,
+    "cache_read_input_tokens": 17892,
+    "output_tokens": 1371,
+    "output_tokens_details": {
+     "thinking_tokens": 879
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 4083,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 1371,
+      "cache_read_input_tokens": 17892,
+      "cache_creation_input_tokens": 4083,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 4083
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard"
+   },
+   "modelUsage": {
+    "claude-haiku-5-5": {
+     "inputTokens": 2,
+     "outputTokens": 1371,
+     "cacheReadInputTokens": 17892,
+     "cacheCreationInputTokens": 4083,
+     "webSearchRequests": 0,
+     "costUSD": 0.084061,
+     "contextWindow": 200000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 879,
+     "canonicalModel": "claude-haiku-5-5",
+     "provider": "firstParty",
+     "costBasis": "unknown"
+    }
+   },
+   "permission_denials": [],
+   "terminal_reason": "completed",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required",
+   "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+     "background": 0,
+     "foreground": 0,
+     "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+     "parent": 0,
+     "user": 0,
+     "system": 0
+    },
+    "refused": {
+     "depth_limit": 0,
+     "concurrency_limit": 0,
+     "budget": 0
+    },
+    "by_type": {}
+   },
+   "is_error": false,
+   "num_turns": 2,
+   "subtype": "success",
+   "api_error_status": null,
+   "result": "{\"answer\":\"DK1 og DK2 er de to prisområder i Danmark. DK1 dækker Jylland og Fyn, og DK2 dækker Sjælland, øerne og København. Spotprisen sættes for hvert område time for time, og den kan være forskellig mellem områderne, især når forbindelserne mellem dem er tæt på kapacitetsgrænsen. Dermed kan din elpris afhænge af hvilket område du bor i. Fortæl mig gerne hvilket område du er i, hvis du vil have en konkret prisvurdering.\",\"answer_type\":\"no_data\",\"area\":null,\"window_start\":null,\"window_end\":null,\"cost_dkk\":null,\"savings_dkk\":null,\"plan_id\":null,\"caveats\":[\"Forklaringen er generel og bygger ikke på tool-data, så der er ingen konkrete priser.\",\"Spotpriser er ekskl. nettarif, elafgift og moms.\"]}",
+   "structured_output": {
+    "answer": "DK1 og DK2 er de to prisområder i Danmark. DK1 dækker Jylland og Fyn, og DK2 dækker Sjælland, øerne og København. Spotprisen sættes for hvert område time for time, og den kan være forskellig mellem områderne, især når forbindelserne mellem dem er tæt på kapacitetsgrænsen. Dermed kan din elpris afhænge af hvilket område du bor i. Fortæl mig gerne hvilket område du er i, hvis du vil have en konkret prisvurdering.",
+    "answer_type": "no_data",
+    "area": null,
+    "window_start": null,
+    "window_end": null,
+    "cost_dkk": null,
+    "savings_dkk": null,
+    "plan_id": null,
+    "caveats": [
+     "Forklaringen er generel og bygger ikke på tool-data, så der er ingen konkrete priser.",
+     "Spotpriser er ekskl. nettarif, elafgift og moms."
+    ]
+   },
+   "ttft_ms": 5700,
+   "type": "result",
+   "duration_ms": 7697,
+   "uuid": "ff150988-4dd4-4ffd-acd7-8cdb3515bb7a",
+   "ttft_stream_ms": 625,
+   "time_to_request_ms": 25,
+   "first_content_frame_ms": 625,
+   "queued_turn_count": 0,
+   "result_index": 0
+  }
+ ],
+ "rate_limited_retries": 0,
+ "cost_cap_mode": "post hoc (listepris)"
+}

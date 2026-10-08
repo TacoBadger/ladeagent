@@ -171,7 +171,14 @@ def update_summary() -> None:
     reports = sorted(REPORTS.glob("*.json"))
     if not reports:
         return
-    rows = [json.loads(p.read_text())["summary"] for p in reports]
+    rows = []
+    for p in reports:
+        try:
+            d = json.loads(p.read_text())
+        except json.JSONDecodeError:
+            continue  # en parallel kørsel er ved at skrive filen
+        if "summary" in d:  # quality.json har ingen summary
+            rows.append(d["summary"])
     cats = ["numeric", "no_data", "injection", "tone"]
     md = ["# Sammenligning af kørsler", "", "Alle kørsler går mod samme frosne snapshot og samme 30 spørgsmål, så forskellen er prompt og model, ikke data.", "",
           "| Kørsel | Model | Prompt | Backend | " + " | ".join(cats) + " | Total | Pris/samtale | Latens |", "|---|---|---|---|" + "---|" * len(cats) + "---|---|---|"]

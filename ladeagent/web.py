@@ -100,6 +100,14 @@ def register(mcp, get_store: Callable[[], DataStore], site_dir: Path | None = No
     async def site_index(request: Request) -> Response:
         return FileResponse(root / "index.html", headers=NO_CACHE)
 
+    @mcp.custom_route("/quality.json", methods=["GET"])
+    async def site_quality(request: Request) -> Response:
+        # Runde 2-tallene til forsiden. I drift kopierer deploy/install.sh filen til /var/www; lokalt læses den herfra.
+        target = config.ROOT / "evals" / "reports" / "quality.json"
+        if not target.is_file():
+            return JSONResponse({"error": "quality.json findes ikke endnu. Kør make quality-all."}, status_code=404, headers=NO_CACHE)
+        return FileResponse(target, headers=NO_CACHE, media_type="application/json")
+
     @mcp.custom_route("/assets/{path:path}", methods=["GET"])
     async def site_asset(request: Request) -> Response:
         target = (root / "assets" / request.path_params["path"]).resolve()

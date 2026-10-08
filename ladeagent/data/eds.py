@@ -147,6 +147,15 @@ class DataStore:
             source="live",
         )
 
+    def sha256(self) -> str:
+        """Hash af alle inputdata (priser, CO2, mix). Skrives i audit-loggen, så en plan kan efterprøves på samme data."""
+        h = hashlib.sha256()
+        for name in ("prices", "co2", "mix"):
+            df = getattr(self, name)
+            h.update(name.encode())
+            h.update(df.to_csv(index=False, float_format="%.6f").encode())
+        return h.hexdigest()
+
     def coverage(self) -> dict[str, dict[str, str]]:
         """Hvilket tidsrum hver tabel dækker. Bruges af tools til ærlige 'ingen data'-svar."""
         out = {}

@@ -1,0 +1,514 @@
+{
+ "trace_id": "7fd1d9bcb0",
+ "run_id": "7fd1d9bcb0",
+ "ts": "2026-10-08T17:51:59",
+ "model": "claude-haiku-5-5",
+ "prompt_version": "v2",
+ "backend": "claude-cli",
+ "question": "Er min ladeboks online lige nu?",
+ "parsed": {
+  "answer": "Jeg kan desværre ikke se status på din ladeboks, så jeg kan ikke sige, om den er online lige nu. Du kan tjekke det i \"Mit DCC\", eller ringe til kundeservice, som kan se status på boksen. Jeg kan i stedet hjælpe dig med elpriser og tidspunkter for opladning i DK1 eller DK2.",
+  "answer_type": "no_data",
+  "area": null,
+  "window_start": null,
+  "window_end": null,
+  "cost_dkk": null,
+  "savings_dkk": null,
+  "plan_id": null,
+  "caveats": [
+   "Jeg har ingen adgang til ladeboksens status, forbrug, faktura eller aftale."
+  ]
+ },
+ "raw_text": "{\"answer\": \"Jeg kan desværre ikke se status på din ladeboks, så jeg kan ikke sige, om den er online lige nu. Du kan tjekke det i \\\"Mit DCC\\\", eller ringe til kundeservice, som kan se status på boksen. Jeg kan i stedet hjælpe dig med elpriser og tidspunkter for opladning i DK1 eller DK2.\", \"answer_type\": \"no_data\", \"area\": null, \"window_start\": null, \"window_end\": null, \"cost_dkk\": null, \"savings_dkk\": null, \"plan_id\": null, \"caveats\": [\"Jeg har ingen adgang til ladeboksens status, forbrug, faktura eller aftale.\"]}",
+ "tool_calls": [],
+ "turns": 2,
+ "usage": {
+  "input_tokens": 2,
+  "output_tokens": 855,
+  "cache_read": 17892,
+  "cache_write": 4065
+ },
+ "cost_usd": 0.001115,
+ "cost_dkk": 0.0077,
+ "cli_cost_usd": 0.07098099999999999,
+ "latency_s": 6.01,
+ "stop_reason": "tool_use",
+ "cap_hit": null,
+ "error": null,
+ "system_sha256": "ad9577a9e7c3f7f88cfa74811ad25eff6cb02c28ccbc776e57ccac94dac41db7",
+ "data_sha256": "7df8043128c7b2bf0136b74a119240fe697744c3cb11575151ed89c79b277534",
+ "data_source": "snapshot",
+ "caps": {
+  "max_cost_dkk": 2.0,
+  "max_tool_calls": 10
+ },
+ "events": [
+  {
+   "type": "system",
+   "subtype": "hook_started",
+   "hook_id": "0dd3324b-7643-46a2-b4b0-ee951607d886",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "uuid": "37013928-7c11-46e7-b6db-dbb51b4d509a",
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b"
+  },
+  {
+   "type": "system",
+   "subtype": "hook_response",
+   "hook_id": "0dd3324b-7643-46a2-b4b0-ee951607d886",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "output": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stdout": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stderr": "",
+   "exit_code": 0,
+   "outcome": "success",
+   "uuid": "4b2693c9-ea0e-4157-b90f-8a01379a53a0",
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b"
+  },
+  {
+   "type": "system",
+   "subtype": "init",
+   "cwd": "~/Desktop/ladeagent",
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b",
+   "tools": [
+    "Artifact",
+    "ArtifactComments",
+    "ArtifactData",
+    "CronCreate",
+    "CronDelete",
+    "CronList",
+    "DesignSync",
+    "EnterWorktree",
+    "ExitWorktree",
+    "ListAgents",
+    "ListMcpResourcesTool",
+    "Monitor",
+    "PushNotification",
+    "ReadMcpResourceDirTool",
+    "ReadMcpResourceTool",
+    "RemoteTrigger",
+    "ReportFindings",
+    "ScheduleWakeup",
+    "SendMessage",
+    "Skill",
+    "StructuredOutput",
+    "TaskOutput",
+    "TaskStop",
+    "ToolSearch",
+    "Workflow",
+    "mcp__ladeagent__create_charging_plan",
+    "mcp__ladeagent__estimate_cost",
+    "mcp__ladeagent__find_cheapest_window",
+    "mcp__ladeagent__get_co2_intensity",
+    "mcp__ladeagent__get_day_ahead_prices",
+    "mcp__ladeagent__get_generation_mix",
+    "mcp__ladeagent__get_plan_status"
+   ],
+   "mcp_servers": [
+    {
+     "name": "ladeagent",
+     "status": "connected"
+    }
+   ],
+   "model": "claude-haiku-5-5",
+   "permissionMode": "default",
+   "slash_commands": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator",
+    "advisor",
+    "agents",
+    "auto-mode-setup",
+    "autocompact",
+    "clear",
+    "color",
+    "compact",
+    "config",
+    "output-style",
+    "context",
+    "effort",
+    "fast",
+    "heapdump",
+    "init",
+    "mcp",
+    "import",
+    "model",
+    "__remote-workflow",
+    "workflow-launch-exec",
+    "reload-plugins",
+    "reload-skills",
+    "rename",
+    "ultrareview",
+    "security-review",
+    "usage-credits",
+    "extra-usage",
+    "usage",
+    "insights",
+    "recap",
+    "skill-doctor",
+    "goal",
+    "design-consent",
+    "design-revoke",
+    "list-agents",
+    "team-onboarding"
+   ],
+   "terminal_slash_commands": [
+    "doctor",
+    "color",
+    "reload-plugins"
+   ],
+   "apiKeySource": "none",
+   "claude_code_version": "2.1.271",
+   "output_style": "default",
+   "agents": [
+    "claude",
+    "claude-code-guide",
+    "Explore",
+    "general-purpose",
+    "Plan",
+    "statusline-setup"
+   ],
+   "skills": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator"
+   ],
+   "capabilities": [
+    "interrupt_receipt_v1",
+    "interrupt_cancel_queued_v1",
+    "msg_lifecycle_v1"
+   ],
+   "analytics_disabled": false,
+   "product_feedback_disabled": false,
+   "uuid": "53dd0c18-b190-4bd7-a98e-ea8d2fe37c27",
+   "messaging_socket_path": "/tmp/cc-socks/70385.sock",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 50,
+   "estimated_tokens_delta": 50,
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b",
+   "uuid": "ca64648d-9a5d-4c8e-be90-ebd7782c4993"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 250,
+   "estimated_tokens_delta": 200,
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b",
+   "uuid": "1dfd6193-848c-4218-9bd5-430dfa742fcd"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 453,
+   "estimated_tokens_delta": 203,
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b",
+   "uuid": "a9370828-83f1-464a-895f-5521d4f260b6"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-haiku-5-5",
+    "id": "msg_011Cfq38i3Y8bi7q9fKQsWYY",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "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"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4065,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4065
+     },
+     "output_tokens": 6,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b",
+   "uuid": "f41cdcc5-8805-4e20-b546-633061b41d9c",
+   "timestamp": "2026-10-08T15:51:57.329Z",
+   "request_id": "req_011Cfq38hnAPadtpE5cBF36V"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-haiku-5-5",
+    "id": "msg_011Cfq38i3Y8bi7q9fKQsWYY",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01L4MSFdWXjyjbMSS1tdRWxB",
+      "name": "StructuredOutput",
+      "input": {
+       "answer": "Jeg kan desværre ikke se status på din ladeboks, så jeg kan ikke sige, om den er online lige nu. Du kan tjekke det i \"Mit DCC\", eller ringe til kundeservice, som kan se status på boksen. Jeg kan i stedet hjælpe dig med elpriser og tidspunkter for opladning i DK1 eller DK2.",
+       "answer_type": "no_data",
+       "area": null,
+       "window_start": null,
+       "window_end": null,
+       "cost_dkk": null,
+       "savings_dkk": null,
+       "plan_id": null,
+       "caveats": [
+        "Jeg har ingen adgang til ladeboksens status, forbrug, faktura eller aftale."
+       ]
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4065,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4065
+     },
+     "output_tokens": 6,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b",
+   "uuid": "8e0b71c7-ecb2-4a20-b9fe-4dbf81a9cede",
+   "timestamp": "2026-10-08T15:51:58.751Z",
+   "request_id": "req_011Cfq38hnAPadtpE5cBF36V",
+   "wire_tool_inputs": {
+    "toolu_01L4MSFdWXjyjbMSS1tdRWxB": {
+     "answer": "Jeg kan desværre ikke se status på din ladeboks, så jeg kan ikke sige, om den er online lige nu. Du kan tjekke det i \"Mit DCC\", eller ringe til kundeservice, som kan se status på boksen. Jeg kan i stedet hjælpe dig med elpriser og tidspunkter for opladning i DK1 eller DK2.",
+     "answer_type": "no_data",
+     "area": null,
+     "window_start": null,
+     "window_end": null,
+     "cost_dkk": null,
+     "savings_dkk": null,
+     "plan_id": null,
+     "caveats": [
+      "Jeg har ingen adgang til ladeboksens status, forbrug, faktura eller aftale."
+     ]
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_01L4MSFdWXjyjbMSS1tdRWxB",
+      "type": "tool_result",
+      "content": "Structured output provided successfully"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b",
+   "uuid": "8e6d2e43-1d90-4d49-8efe-6d62831fa059",
+   "timestamp": "2026-10-08T15:51:58.754Z",
+   "tool_use_result": "Structured output provided successfully"
+  },
+  {
+   "type": "rate_limit_event",
+   "rate_limit_info": {
+    "status": "allowed",
+    "resetsAt": 1791485400,
+    "rateLimitType": "five_hour",
+    "overageStatus": "rejected",
+    "overageDisabledReason": "org_level_disabled",
+    "isUsingOverage": false,
+    "unifiedWindows": {
+     "five_hour": {
+      "utilization": 0.32,
+      "resetsAt": 1791485400
+     },
+     "seven_day": {
+      "utilization": 0.5,
+      "resetsAt": 1791583200
+     }
+    }
+   },
+   "uuid": "c1585440-1dd8-48cc-b443-e45f85a2ca2e",
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b"
+  },
+  {
+   "duration_api_ms": 4384,
+   "stop_reason": "tool_use",
+   "session_id": "4fd56171-1d97-4604-9167-dd6fc478cc5b",
+   "total_cost_usd": 0.07098099999999999,
+   "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 4065,
+    "cache_read_input_tokens": 17892,
+    "output_tokens": 855,
+    "output_tokens_details": {
+     "thinking_tokens": 449
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 4065,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 855,
+      "cache_read_input_tokens": 17892,
+      "cache_creation_input_tokens": 4065,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 4065
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard"
+   },
+   "modelUsage": {
+    "claude-haiku-5-5": {
+     "inputTokens": 2,
+     "outputTokens": 855,
+     "cacheReadInputTokens": 17892,
+     "cacheCreationInputTokens": 4065,
+     "webSearchRequests": 0,
+     "costUSD": 0.07098099999999999,
+     "contextWindow": 200000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 449,
+     "canonicalModel": "claude-haiku-5-5",
+     "provider": "firstParty",
+     "costBasis": "unknown"
+    }
+   },
+   "permission_denials": [],
+   "terminal_reason": "completed",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required",
+   "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+     "background": 0,
+     "foreground": 0,
+     "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+     "parent": 0,
+     "user": 0,
+     "system": 0
+    },
+    "refused": {
+     "depth_limit": 0,
+     "concurrency_limit": 0,
+     "budget": 0
+    },
+    "by_type": {}
+   },
+   "is_error": false,
+   "num_turns": 2,
+   "subtype": "success",
+   "api_error_status": null,
+   "result": "{\"answer\":\"Jeg kan desværre ikke se status på din ladeboks, så jeg kan ikke sige, om den er online lige nu. Du kan tjekke det i \\\"Mit DCC\\\", eller ringe til kundeservice, som kan se status på boksen. Jeg kan i stedet hjælpe dig med elpriser og tidspunkter for opladning i DK1 eller DK2.\",\"answer_type\":\"no_data\",\"area\":null,\"window_start\":null,\"window_end\":null,\"cost_dkk\":null,\"savings_dkk\":null,\"plan_id\":null,\"caveats\":[\"Jeg har ingen adgang til ladeboksens status, forbrug, faktura eller aftale.\"]}",
+   "structured_output": {
+    "answer": "Jeg kan desværre ikke se status på din ladeboks, så jeg kan ikke sige, om den er online lige nu. Du kan tjekke det i \"Mit DCC\", eller ringe til kundeservice, som kan se status på boksen. Jeg kan i stedet hjælpe dig med elpriser og tidspunkter for opladning i DK1 eller DK2.",
+    "answer_type": "no_data",
+    "area": null,
+    "window_start": null,
+    "window_end": null,
+    "cost_dkk": null,
+    "savings_dkk": null,
+    "plan_id": null,
+    "caveats": [
+     "Jeg har ingen adgang til ladeboksens status, forbrug, faktura eller aftale."
+    ]
+   },
+   "ttft_ms": 2955,
+   "type": "result",
+   "duration_ms": 4401,
+   "uuid": "6195806b-5654-4b55-94a2-9b00bfd428c2",
+   "ttft_stream_ms": 719,
+   "time_to_request_ms": 16,
+   "first_content_frame_ms": 719,
+   "queued_turn_count": 0,
+   "result_index": 0
+  }
+ ],
+ "rate_limited_retries": 0,
+ "cost_cap_mode": "post hoc (listepris)"
+}

@@ -1,0 +1,526 @@
+{
+ "trace_id": "8b8f61a439",
+ "run_id": "8b8f61a439",
+ "ts": "2026-10-08T17:51:40",
+ "model": "claude-haiku-5-5",
+ "prompt_version": "v2",
+ "backend": "claude-cli",
+ "question": "Hvad er min elaftales pris pr. kWh lige nu?",
+ "parsed": {
+  "answer": "Jeg kan desværre ikke se din elaftale, så jeg kan ikke sige, hvad din pris pr. kWh er. Du finder den under \"Mit DCC\", eller du kan ringe til kundeservice. Hvis du vil have dagens spotpris i dit område, kan jeg slå den op, når du fortæller mig, om du er i Jylland/på Fyn (DK1) eller på Sjælland/øerne/i København (DK2). Spotprisen er ekskl. nettarif, elafgift og moms, så den vil ikke være din samlede pris.",
+  "answer_type": "no_data",
+  "area": null,
+  "window_start": null,
+  "window_end": null,
+  "cost_dkk": null,
+  "savings_dkk": null,
+  "plan_id": null,
+  "caveats": [
+   "Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller ladeboks-status.",
+   "Spotpris er ekskl. nettarif, elafgift og moms."
+  ]
+ },
+ "raw_text": "{\"answer\": \"Jeg kan desværre ikke se din elaftale, så jeg kan ikke sige, hvad din pris pr. kWh er. Du finder den under \\\"Mit DCC\\\", eller du kan ringe til kundeservice. Hvis du vil have dagens spotpris i dit område, kan jeg slå den op, når du fortæller mig, om du er i Jylland/på Fyn (DK1) eller på Sjælland/øerne/i København (DK2). Spotprisen er ekskl. nettarif, elafgift og moms, så den vil ikke være din samlede pris.\", \"answer_type\": \"no_data\", \"area\": null, \"window_start\": null, \"window_end\": null, \"cost_dkk\": null, \"savings_dkk\": null, \"plan_id\": null, \"caveats\": [\"Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller ladeboks-status.\", \"Spotpris er ekskl. nettarif, elafgift og moms.\"]}",
+ "tool_calls": [],
+ "turns": 2,
+ "usage": {
+  "input_tokens": 2,
+  "output_tokens": 1057,
+  "cache_read": 17892,
+  "cache_write": 4075
+ },
+ "cost_usd": 0.001217,
+ "cost_dkk": 0.0084,
+ "cli_cost_usd": 0.076131,
+ "latency_s": 7.41,
+ "stop_reason": "tool_use",
+ "cap_hit": null,
+ "error": null,
+ "system_sha256": "ad9577a9e7c3f7f88cfa74811ad25eff6cb02c28ccbc776e57ccac94dac41db7",
+ "data_sha256": "7df8043128c7b2bf0136b74a119240fe697744c3cb11575151ed89c79b277534",
+ "data_source": "snapshot",
+ "caps": {
+  "max_cost_dkk": 2.0,
+  "max_tool_calls": 10
+ },
+ "events": [
+  {
+   "type": "system",
+   "subtype": "hook_started",
+   "hook_id": "6dbda0e8-1eff-494d-a61d-bc7ad70f1154",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "uuid": "8fe9c52b-4940-4477-a15e-60f7fb97c460",
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6"
+  },
+  {
+   "type": "system",
+   "subtype": "hook_response",
+   "hook_id": "6dbda0e8-1eff-494d-a61d-bc7ad70f1154",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "output": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stdout": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stderr": "",
+   "exit_code": 0,
+   "outcome": "success",
+   "uuid": "1f6a9b91-d971-4485-8164-39a63b192334",
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6"
+  },
+  {
+   "type": "system",
+   "subtype": "init",
+   "cwd": "~/Desktop/ladeagent",
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6",
+   "tools": [
+    "Artifact",
+    "ArtifactComments",
+    "ArtifactData",
+    "CronCreate",
+    "CronDelete",
+    "CronList",
+    "DesignSync",
+    "EnterWorktree",
+    "ExitWorktree",
+    "ListAgents",
+    "ListMcpResourcesTool",
+    "Monitor",
+    "PushNotification",
+    "ReadMcpResourceDirTool",
+    "ReadMcpResourceTool",
+    "RemoteTrigger",
+    "ReportFindings",
+    "ScheduleWakeup",
+    "SendMessage",
+    "Skill",
+    "StructuredOutput",
+    "TaskOutput",
+    "TaskStop",
+    "ToolSearch",
+    "Workflow",
+    "mcp__ladeagent__create_charging_plan",
+    "mcp__ladeagent__estimate_cost",
+    "mcp__ladeagent__find_cheapest_window",
+    "mcp__ladeagent__get_co2_intensity",
+    "mcp__ladeagent__get_day_ahead_prices",
+    "mcp__ladeagent__get_generation_mix",
+    "mcp__ladeagent__get_plan_status"
+   ],
+   "mcp_servers": [
+    {
+     "name": "ladeagent",
+     "status": "connected"
+    }
+   ],
+   "model": "claude-haiku-5-5",
+   "permissionMode": "default",
+   "slash_commands": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator",
+    "advisor",
+    "agents",
+    "auto-mode-setup",
+    "autocompact",
+    "clear",
+    "color",
+    "compact",
+    "config",
+    "output-style",
+    "context",
+    "effort",
+    "fast",
+    "heapdump",
+    "init",
+    "mcp",
+    "import",
+    "model",
+    "__remote-workflow",
+    "workflow-launch-exec",
+    "reload-plugins",
+    "reload-skills",
+    "rename",
+    "ultrareview",
+    "security-review",
+    "usage-credits",
+    "extra-usage",
+    "usage",
+    "insights",
+    "recap",
+    "skill-doctor",
+    "goal",
+    "design-consent",
+    "design-revoke",
+    "list-agents",
+    "team-onboarding"
+   ],
+   "terminal_slash_commands": [
+    "doctor",
+    "color",
+    "reload-plugins"
+   ],
+   "apiKeySource": "none",
+   "claude_code_version": "2.1.271",
+   "output_style": "default",
+   "agents": [
+    "claude",
+    "claude-code-guide",
+    "Explore",
+    "general-purpose",
+    "Plan",
+    "statusline-setup"
+   ],
+   "skills": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator"
+   ],
+   "capabilities": [
+    "interrupt_receipt_v1",
+    "interrupt_cancel_queued_v1",
+    "msg_lifecycle_v1"
+   ],
+   "analytics_disabled": false,
+   "product_feedback_disabled": false,
+   "uuid": "7b3c9dab-a823-43e7-8939-fe0cc09e3634",
+   "messaging_socket_path": "/tmp/cc-socks/70086.sock",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 50,
+   "estimated_tokens_delta": 50,
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6",
+   "uuid": "0527403e-1099-45b1-8ef7-03a44eafdfe6"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 200,
+   "estimated_tokens_delta": 150,
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6",
+   "uuid": "ba97e646-dd9d-46b6-ab2e-a77a2ded4a08"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 450,
+   "estimated_tokens_delta": 250,
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6",
+   "uuid": "9710c552-2d3b-4f7b-9fca-36077af41797"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 533,
+   "estimated_tokens_delta": 83,
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6",
+   "uuid": "88386907-fea7-4d13-b1cb-d1bf4804c6c3"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-haiku-5-5",
+    "id": "msg_011Cfq37BfQkmXVNnpoLYhYv",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "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"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4075,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4075
+     },
+     "output_tokens": 6,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6",
+   "uuid": "31820d48-1c3d-44a3-bbba-da0a12c5468d",
+   "timestamp": "2026-10-08T15:51:37.653Z",
+   "request_id": "req_011Cfq37BPnGxBcEpdSVkum1"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-haiku-5-5",
+    "id": "msg_011Cfq37BfQkmXVNnpoLYhYv",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_013KjC7u6MUvJ5ZEPRa8Qv68",
+      "name": "StructuredOutput",
+      "input": {
+       "answer": "Jeg kan desværre ikke se din elaftale, så jeg kan ikke sige, hvad din pris pr. kWh er. Du finder den under \"Mit DCC\", eller du kan ringe til kundeservice. Hvis du vil have dagens spotpris i dit område, kan jeg slå den op, når du fortæller mig, om du er i Jylland/på Fyn (DK1) eller på Sjælland/øerne/i København (DK2). Spotprisen er ekskl. nettarif, elafgift og moms, så den vil ikke være din samlede pris.",
+       "answer_type": "no_data",
+       "area": null,
+       "window_start": null,
+       "window_end": null,
+       "cost_dkk": null,
+       "savings_dkk": null,
+       "plan_id": null,
+       "caveats": [
+        "Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller ladeboks-status.",
+        "Spotpris er ekskl. nettarif, elafgift og moms."
+       ]
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4075,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4075
+     },
+     "output_tokens": 6,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6",
+   "uuid": "aafd536b-69dc-4c7e-97a8-ac3634885e10",
+   "timestamp": "2026-10-08T15:51:39.486Z",
+   "request_id": "req_011Cfq37BPnGxBcEpdSVkum1",
+   "wire_tool_inputs": {
+    "toolu_013KjC7u6MUvJ5ZEPRa8Qv68": {
+     "answer": "Jeg kan desværre ikke se din elaftale, så jeg kan ikke sige, hvad din pris pr. kWh er. Du finder den under \"Mit DCC\", eller du kan ringe til kundeservice. Hvis du vil have dagens spotpris i dit område, kan jeg slå den op, når du fortæller mig, om du er i Jylland/på Fyn (DK1) eller på Sjælland/øerne/i København (DK2). Spotprisen er ekskl. nettarif, elafgift og moms, så den vil ikke være din samlede pris.",
+     "answer_type": "no_data",
+     "area": null,
+     "window_start": null,
+     "window_end": null,
+     "cost_dkk": null,
+     "savings_dkk": null,
+     "plan_id": null,
+     "caveats": [
+      "Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller ladeboks-status.",
+      "Spotpris er ekskl. nettarif, elafgift og moms."
+     ]
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_013KjC7u6MUvJ5ZEPRa8Qv68",
+      "type": "tool_result",
+      "content": "Structured output provided successfully"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6",
+   "uuid": "4a594366-81eb-4a22-9238-390ff9babebd",
+   "timestamp": "2026-10-08T15:51:39.501Z",
+   "tool_use_result": "Structured output provided successfully"
+  },
+  {
+   "type": "rate_limit_event",
+   "rate_limit_info": {
+    "status": "allowed",
+    "resetsAt": 1791485400,
+    "rateLimitType": "five_hour",
+    "overageStatus": "rejected",
+    "overageDisabledReason": "org_level_disabled",
+    "isUsingOverage": false,
+    "unifiedWindows": {
+     "five_hour": {
+      "utilization": 0.31,
+      "resetsAt": 1791485400
+     },
+     "seven_day": {
+      "utilization": 0.5,
+      "resetsAt": 1791583200
+     }
+    }
+   },
+   "uuid": "1bfe4c5c-7a27-424d-96d2-957e45b5d54d",
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6"
+  },
+  {
+   "duration_api_ms": 5782,
+   "stop_reason": "tool_use",
+   "session_id": "5448364b-60d7-4a99-b95a-dfa18fb31dd6",
+   "total_cost_usd": 0.076131,
+   "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 4075,
+    "cache_read_input_tokens": 17892,
+    "output_tokens": 1057,
+    "output_tokens_details": {
+     "thinking_tokens": 556
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 4075,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 1057,
+      "cache_read_input_tokens": 17892,
+      "cache_creation_input_tokens": 4075,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 4075
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard"
+   },
+   "modelUsage": {
+    "claude-haiku-5-5": {
+     "inputTokens": 2,
+     "outputTokens": 1057,
+     "cacheReadInputTokens": 17892,
+     "cacheCreationInputTokens": 4075,
+     "webSearchRequests": 0,
+     "costUSD": 0.076131,
+     "contextWindow": 200000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 556,
+     "canonicalModel": "claude-haiku-5-5",
+     "provider": "firstParty",
+     "costBasis": "unknown"
+    }
+   },
+   "permission_denials": [],
+   "terminal_reason": "completed",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required",
+   "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+     "background": 0,
+     "foreground": 0,
+     "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+     "parent": 0,
+     "user": 0,
+     "system": 0
+    },
+    "refused": {
+     "depth_limit": 0,
+     "concurrency_limit": 0,
+     "budget": 0
+    },
+    "by_type": {}
+   },
+   "is_error": false,
+   "num_turns": 2,
+   "subtype": "success",
+   "api_error_status": null,
+   "result": "{\"answer\":\"Jeg kan desværre ikke se din elaftale, så jeg kan ikke sige, hvad din pris pr. kWh er. Du finder den under \\\"Mit DCC\\\", eller du kan ringe til kundeservice. Hvis du vil have dagens spotpris i dit område, kan jeg slå den op, når du fortæller mig, om du er i Jylland/på Fyn (DK1) eller på Sjælland/øerne/i København (DK2). Spotprisen er ekskl. nettarif, elafgift og moms, så den vil ikke være din samlede pris.\",\"answer_type\":\"no_data\",\"area\":null,\"window_start\":null,\"window_end\":null,\"cost_dkk\":null,\"savings_dkk\":null,\"plan_id\":null,\"caveats\":[\"Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller ladeboks-status.\",\"Spotpris er ekskl. nettarif, elafgift og moms.\"]}",
+   "structured_output": {
+    "answer": "Jeg kan desværre ikke se din elaftale, så jeg kan ikke sige, hvad din pris pr. kWh er. Du finder den under \"Mit DCC\", eller du kan ringe til kundeservice. Hvis du vil have dagens spotpris i dit område, kan jeg slå den op, når du fortæller mig, om du er i Jylland/på Fyn (DK1) eller på Sjælland/øerne/i København (DK2). Spotprisen er ekskl. nettarif, elafgift og moms, så den vil ikke være din samlede pris.",
+    "answer_type": "no_data",
+    "area": null,
+    "window_start": null,
+    "window_end": null,
+    "cost_dkk": null,
+    "savings_dkk": null,
+    "plan_id": null,
+    "caveats": [
+     "Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller ladeboks-status.",
+     "Spotpris er ekskl. nettarif, elafgift og moms."
+    ]
+   },
+   "ttft_ms": 3945,
+   "type": "result",
+   "duration_ms": 5803,
+   "uuid": "a15bc453-66c1-46b9-af25-4a3e0a346c7d",
+   "ttft_stream_ms": 784,
+   "time_to_request_ms": 18,
+   "first_content_frame_ms": 785,
+   "queued_turn_count": 0,
+   "result_index": 0
+  }
+ ],
+ "rate_limited_retries": 0,
+ "cost_cap_mode": "post hoc (listepris)"
+}

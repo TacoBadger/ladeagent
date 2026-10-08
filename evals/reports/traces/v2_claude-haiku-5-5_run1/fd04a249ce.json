@@ -1,0 +1,518 @@
+{
+ "trace_id": "fd04a249ce",
+ "run_id": "fd04a249ce",
+ "ts": "2026-10-08T17:47:14",
+ "model": "claude-haiku-5-5",
+ "prompt_version": "v2",
+ "backend": "claude-cli",
+ "question": "Jeg forstår ikke min elregning, kan du hjælpe mig?",
+ "parsed": {
+  "answer": "Jeg kan desværre ikke se din elregning, dit forbrug, din elaftale eller din faktura, så jeg kan ikke forklare de konkrete linjer på din regning. Du finder den under \"Mit DCC\", eller du kan ringe til kundeservice, som kan gennemgå regningen med dig. Jeg kan hjælpe med spotprisen på strøm i DK1 (Jylland/Fyn) eller DK2 (Sjælland/øerne), fx hvornår på dagen den er billigst. Fortæl mig gerne område og periode, hvis du vil have det.",
+  "answer_type": "no_data",
+  "area": null,
+  "window_start": null,
+  "window_end": null,
+  "cost_dkk": null,
+  "savings_dkk": null,
+  "plan_id": null,
+  "caveats": [
+   "Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller adresse.",
+   "Spotpriser er ekskl. nettarif, elafgift og moms."
+  ]
+ },
+ "raw_text": "{\"answer\": \"Jeg kan desværre ikke se din elregning, dit forbrug, din elaftale eller din faktura, så jeg kan ikke forklare de konkrete linjer på din regning. Du finder den under \\\"Mit DCC\\\", eller du kan ringe til kundeservice, som kan gennemgå regningen med dig. Jeg kan hjælpe med spotprisen på strøm i DK1 (Jylland/Fyn) eller DK2 (Sjælland/øerne), fx hvornår på dagen den er billigst. Fortæl mig gerne område og periode, hvis du vil have det.\", \"answer_type\": \"no_data\", \"area\": null, \"window_start\": null, \"window_end\": null, \"cost_dkk\": null, \"savings_dkk\": null, \"plan_id\": null, \"caveats\": [\"Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller adresse.\", \"Spotpriser er ekskl. nettarif, elafgift og moms.\"]}",
+ "tool_calls": [],
+ "turns": 2,
+ "usage": {
+  "input_tokens": 2,
+  "output_tokens": 811,
+  "cache_read": 17892,
+  "cache_write": 4078
+ },
+ "cost_usd": 0.001094,
+ "cost_dkk": 0.0076,
+ "cli_cost_usd": 0.07001099999999999,
+ "latency_s": 6.08,
+ "stop_reason": "tool_use",
+ "cap_hit": null,
+ "error": null,
+ "system_sha256": "ad9577a9e7c3f7f88cfa74811ad25eff6cb02c28ccbc776e57ccac94dac41db7",
+ "data_sha256": "7df8043128c7b2bf0136b74a119240fe697744c3cb11575151ed89c79b277534",
+ "data_source": "snapshot",
+ "caps": {
+  "max_cost_dkk": 2.0,
+  "max_tool_calls": 10
+ },
+ "events": [
+  {
+   "type": "system",
+   "subtype": "hook_started",
+   "hook_id": "463520d5-f264-4827-8346-a72801618520",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "uuid": "1edf917c-8731-475c-87d0-ca3903e8121a",
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af"
+  },
+  {
+   "type": "system",
+   "subtype": "hook_response",
+   "hook_id": "463520d5-f264-4827-8346-a72801618520",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "output": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stdout": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stderr": "",
+   "exit_code": 0,
+   "outcome": "success",
+   "uuid": "8b64f165-ffdd-4194-8896-84e1247518db",
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af"
+  },
+  {
+   "type": "system",
+   "subtype": "init",
+   "cwd": "~/Desktop/ladeagent",
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af",
+   "tools": [
+    "Artifact",
+    "ArtifactComments",
+    "ArtifactData",
+    "CronCreate",
+    "CronDelete",
+    "CronList",
+    "DesignSync",
+    "EnterWorktree",
+    "ExitWorktree",
+    "ListAgents",
+    "ListMcpResourcesTool",
+    "Monitor",
+    "PushNotification",
+    "ReadMcpResourceDirTool",
+    "ReadMcpResourceTool",
+    "RemoteTrigger",
+    "ReportFindings",
+    "ScheduleWakeup",
+    "SendMessage",
+    "Skill",
+    "StructuredOutput",
+    "TaskOutput",
+    "TaskStop",
+    "ToolSearch",
+    "Workflow",
+    "mcp__ladeagent__create_charging_plan",
+    "mcp__ladeagent__estimate_cost",
+    "mcp__ladeagent__find_cheapest_window",
+    "mcp__ladeagent__get_co2_intensity",
+    "mcp__ladeagent__get_day_ahead_prices",
+    "mcp__ladeagent__get_generation_mix",
+    "mcp__ladeagent__get_plan_status"
+   ],
+   "mcp_servers": [
+    {
+     "name": "ladeagent",
+     "status": "connected"
+    }
+   ],
+   "model": "claude-haiku-5-5",
+   "permissionMode": "default",
+   "slash_commands": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator",
+    "advisor",
+    "agents",
+    "auto-mode-setup",
+    "autocompact",
+    "clear",
+    "color",
+    "compact",
+    "config",
+    "output-style",
+    "context",
+    "effort",
+    "fast",
+    "heapdump",
+    "init",
+    "mcp",
+    "import",
+    "model",
+    "__remote-workflow",
+    "workflow-launch-exec",
+    "reload-plugins",
+    "reload-skills",
+    "rename",
+    "ultrareview",
+    "security-review",
+    "usage-credits",
+    "extra-usage",
+    "usage",
+    "insights",
+    "recap",
+    "skill-doctor",
+    "goal",
+    "design-consent",
+    "design-revoke",
+    "list-agents",
+    "team-onboarding"
+   ],
+   "terminal_slash_commands": [
+    "doctor",
+    "color",
+    "reload-plugins"
+   ],
+   "apiKeySource": "none",
+   "claude_code_version": "2.1.271",
+   "output_style": "default",
+   "agents": [
+    "claude",
+    "claude-code-guide",
+    "Explore",
+    "general-purpose",
+    "Plan",
+    "statusline-setup"
+   ],
+   "skills": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator"
+   ],
+   "capabilities": [
+    "interrupt_receipt_v1",
+    "interrupt_cancel_queued_v1",
+    "msg_lifecycle_v1"
+   ],
+   "analytics_disabled": false,
+   "product_feedback_disabled": false,
+   "uuid": "d02a2947-8a3d-4ee9-ba96-e5cbb561e903",
+   "messaging_socket_path": "/tmp/cc-socks/67233.sock",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 50,
+   "estimated_tokens_delta": 50,
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af",
+   "uuid": "c8380dda-69d2-4822-a4e5-f5bc4c22a21b"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 200,
+   "estimated_tokens_delta": 150,
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af",
+   "uuid": "50e32347-a76c-47a5-89f7-054171aa9b9e"
+  },
+  {
+   "type": "system",
+   "subtype": "thinking_tokens",
+   "estimated_tokens": 366,
+   "estimated_tokens_delta": 166,
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af",
+   "uuid": "2da48f9e-636d-40d8-ba78-6eabaa612dcf"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-haiku-5-5",
+    "id": "msg_011Cfq2mitokeNPybXpGhC7u",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "CAQSsAsKEAgSGAI4AUIIdGhpbmtpbmcSDKodVbRZKWDUfL7RfxoM3Obl5Bg36BADeZSRIjC6V3z+5N8ET5wcr6Zkv+rw0mRvqXKoHN3JwLiq7ue5syDKRGJrkAQNSZDhRGHT8OgqzQpjB48JL2hA1McopgtZ/xygWp/rNfN2T9I3fYJSpHStZN96xUrkBywtK+Nsxnc64lLNHtaKDbdJcklljEo/+b0efoIH9dzT+Zpn3d8xzC1yZUstfZ32FDIG5xB+MysP6unEbjAyqhi21L2Q5WQyVEUC7W4U5Vr0HWLwUMKn+sQAlwJSKWvJtLHGkS501l/0BEAFR3H6pFhLsGrweP25kWyII0OB9lhjssFm1KbqlvKFBvgluqmf8GoLqy2RDidt7iT6QLb2UIrjGPJhIObjBs4P1vWL5XgG9Y4g4AU2TH9Pwt3fPN84vhqFejeUKl1dSTkySChzimbWC37FWOYRkSeKwWiWt1U/2UQ5FO8Auv7m96pTrN3KfjYEEF28Nq10fuhgFB3gNngzt7siQSFztPZQAkzCIobiGJI1jln2uxC9s4cgBi0HQ3shyVkol6Th4dEzVcb/Xk+uB66sDimOxBqoafnuMA6Ghe4xpLsHh5U7BhZeHk6QK4gGY/XVj7Ba7/3UfRKfdby9j6fcgq5cmURHdaRNrrwgjExKOAaNbVdqQiO0xOnYXlaA1YL8huNCFNIJIm2R/BH7Af67zHRTQ3+XnDiQKTkQp64pYt4CngPvq/RY8v665IobJINHy7wj+VZO4HrKAlZ7OVEJ7MNrV/Oc8JbZuojLJA2EaJdLjfe+BiwMHUCmee5UKNfOehvBwhtg798eC+xCev9TwtBaz8ZEmU9Ws9nY6qmsjOJebh1FcgU63e7Gou6L1h4XNshAUb8FRKJuO39ZogKiKjE4TsMRxklhUxgFVbmfr7FJQG5I+AWFOzRn+gShMPcahSFDJ9S4otS6sq3Ss1SqYlCiwWxifuQ9+y4c8jwU6kPsHEvPTTBXtCLh7w9D2agT1EX1L1wSL/Iv5/rRPFvZCALBhnDreTQNPcSjVN1zhTmgcb+W2QF+CglXeIPOWFP0rezIPl5f6PjBjSXFN8OoCbu2BzfMyqEIVqYEKGrlqEZ0lmL1d6juNvoygu8po6+VJqPY1aGmyPwVvJpl0Chby682f530UZFA3fnP3oqQwmt3upx3DQ66VktnauA1gjmCEmt9JcuX0a3KTCuVOEX3IQx/sIFjXPoWjhufNk4yjB1afN3B4MRnIz20NAHLNQFKUDXR8IY2hyMW7ONJ5LzawAM64T01iiN0jt1IPkPoc10FMgbrXhuFM3vGKivPhRGsRa4zFfUJPY9zj0nU962fPyJPeeM6AvIbah+BKIu4sY9kWJKQmWf3UjUx32xoVngAQpLYFfMKoXeOKFj94VcfpqyN40OwRdq0dv8NbQUykYYDbMwzH9D0JvDinRzs9PkUhiCL73V1eR+TgEoFa/PAVpBLj32ScG9ArU2yp0a+rAcBmI6O35P1rcc7gL2Oh/0IXBLoBt+rEOVC7/WwYVF2nPHVUBRAELnsSEwPXvQb0iAJMgNVXVXSusQxjljmXdS9sLrr5ljvfnntgIUzd1vaTe3agTnQr138Cvwm0ebzGyZyZr+kY7Pkfoh3wSWu1+pQccLfj6glXWEhsZ3TmV6Znisrge2fpzOaVouvkQF29dUVHJqLNKQD9h3eoGS5OCE6lHc/VNJTUzFf2eD9lQrTfWCSa0keeVCs4KhPyoWJSmKypvnL3BTs/rPHiMh9RL1KxrCrKneMFQ8dD8GuMyTtN8ud9keRhQbeSzVgaEHL6sWSlq7Z6aSeKrGWwLdd/lZt0NdA8Q8GLKVyuHLxp5X7pR960lNGFC8/1tBHAi4FK8HYGQ6KyfWuBoYcu/7Q0w2c5ee10ztH2xABMIxiCbfFuKCAGAE="
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4078,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4078
+     },
+     "output_tokens": 2,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af",
+   "uuid": "e604ad83-aec4-4adb-84d4-f6a2e870d9a0",
+   "timestamp": "2026-10-08T15:47:12.210Z",
+   "request_id": "req_011Cfq2mifffJYTA7PfftgSt"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-haiku-5-5",
+    "id": "msg_011Cfq2mitokeNPybXpGhC7u",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_011P5xFauyQrHCo7GWr1GQMf",
+      "name": "StructuredOutput",
+      "input": {
+       "answer": "Jeg kan desværre ikke se din elregning, dit forbrug, din elaftale eller din faktura, så jeg kan ikke forklare de konkrete linjer på din regning. Du finder den under \"Mit DCC\", eller du kan ringe til kundeservice, som kan gennemgå regningen med dig. Jeg kan hjælpe med spotprisen på strøm i DK1 (Jylland/Fyn) eller DK2 (Sjælland/øerne), fx hvornår på dagen den er billigst. Fortæl mig gerne område og periode, hvis du vil have det.",
+       "answer_type": "no_data",
+       "area": null,
+       "window_start": null,
+       "window_end": null,
+       "cost_dkk": null,
+       "savings_dkk": null,
+       "plan_id": null,
+       "caveats": [
+        "Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller adresse.",
+        "Spotpriser er ekskl. nettarif, elafgift og moms."
+       ]
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4078,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4078
+     },
+     "output_tokens": 2,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af",
+   "uuid": "e3fa2fc2-b882-4d3c-b093-006cc2c0fd6b",
+   "timestamp": "2026-10-08T15:47:14.210Z",
+   "request_id": "req_011Cfq2mifffJYTA7PfftgSt",
+   "wire_tool_inputs": {
+    "toolu_011P5xFauyQrHCo7GWr1GQMf": {
+     "answer": "Jeg kan desværre ikke se din elregning, dit forbrug, din elaftale eller din faktura, så jeg kan ikke forklare de konkrete linjer på din regning. Du finder den under \"Mit DCC\", eller du kan ringe til kundeservice, som kan gennemgå regningen med dig. Jeg kan hjælpe med spotprisen på strøm i DK1 (Jylland/Fyn) eller DK2 (Sjælland/øerne), fx hvornår på dagen den er billigst. Fortæl mig gerne område og periode, hvis du vil have det.",
+     "answer_type": "no_data",
+     "area": null,
+     "window_start": null,
+     "window_end": null,
+     "cost_dkk": null,
+     "savings_dkk": null,
+     "plan_id": null,
+     "caveats": [
+      "Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller adresse.",
+      "Spotpriser er ekskl. nettarif, elafgift og moms."
+     ]
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_011P5xFauyQrHCo7GWr1GQMf",
+      "type": "tool_result",
+      "content": "Structured output provided successfully"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af",
+   "uuid": "09a049ee-37b3-45f2-9e60-83c8b6d03462",
+   "timestamp": "2026-10-08T15:47:14.221Z",
+   "tool_use_result": "Structured output provided successfully"
+  },
+  {
+   "type": "rate_limit_event",
+   "rate_limit_info": {
+    "status": "allowed",
+    "resetsAt": 1791485400,
+    "rateLimitType": "five_hour",
+    "overageStatus": "rejected",
+    "overageDisabledReason": "org_level_disabled",
+    "isUsingOverage": false,
+    "unifiedWindows": {
+     "five_hour": {
+      "utilization": 0.27,
+      "resetsAt": 1791485400
+     },
+     "seven_day": {
+      "utilization": 0.49,
+      "resetsAt": 1791583200
+     }
+    }
+   },
+   "uuid": "de082f7d-507c-42d2-8600-b5d79b9a8f3f",
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af"
+  },
+  {
+   "duration_api_ms": 4495,
+   "stop_reason": "tool_use",
+   "session_id": "d650b67a-f5f4-4db6-9007-b0132ce1a5af",
+   "total_cost_usd": 0.07001099999999999,
+   "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 4078,
+    "cache_read_input_tokens": 17892,
+    "output_tokens": 811,
+    "output_tokens_details": {
+     "thinking_tokens": 305
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 4078,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 811,
+      "cache_read_input_tokens": 17892,
+      "cache_creation_input_tokens": 4078,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 4078
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard"
+   },
+   "modelUsage": {
+    "claude-haiku-5-5": {
+     "inputTokens": 2,
+     "outputTokens": 811,
+     "cacheReadInputTokens": 17892,
+     "cacheCreationInputTokens": 4078,
+     "webSearchRequests": 0,
+     "costUSD": 0.07001099999999999,
+     "contextWindow": 200000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 305,
+     "canonicalModel": "claude-haiku-5-5",
+     "provider": "firstParty",
+     "costBasis": "unknown"
+    }
+   },
+   "permission_denials": [],
+   "terminal_reason": "completed",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required",
+   "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+     "background": 0,
+     "foreground": 0,
+     "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+     "parent": 0,
+     "user": 0,
+     "system": 0
+    },
+    "refused": {
+     "depth_limit": 0,
+     "concurrency_limit": 0,
+     "budget": 0
+    },
+    "by_type": {}
+   },
+   "is_error": false,
+   "num_turns": 2,
+   "subtype": "success",
+   "api_error_status": null,
+   "result": "{\"answer\":\"Jeg kan desværre ikke se din elregning, dit forbrug, din elaftale eller din faktura, så jeg kan ikke forklare de konkrete linjer på din regning. Du finder den under \\\"Mit DCC\\\", eller du kan ringe til kundeservice, som kan gennemgå regningen med dig. Jeg kan hjælpe med spotprisen på strøm i DK1 (Jylland/Fyn) eller DK2 (Sjælland/øerne), fx hvornår på dagen den er billigst. Fortæl mig gerne område og periode, hvis du vil have det.\",\"answer_type\":\"no_data\",\"area\":null,\"window_start\":null,\"window_end\":null,\"cost_dkk\":null,\"savings_dkk\":null,\"plan_id\":null,\"caveats\":[\"Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller adresse.\",\"Spotpriser er ekskl. nettarif, elafgift og moms.\"]}",
+   "structured_output": {
+    "answer": "Jeg kan desværre ikke se din elregning, dit forbrug, din elaftale eller din faktura, så jeg kan ikke forklare de konkrete linjer på din regning. Du finder den under \"Mit DCC\", eller du kan ringe til kundeservice, som kan gennemgå regningen med dig. Jeg kan hjælpe med spotprisen på strøm i DK1 (Jylland/Fyn) eller DK2 (Sjælland/øerne), fx hvornår på dagen den er billigst. Fortæl mig gerne område og periode, hvis du vil have det.",
+    "answer_type": "no_data",
+    "area": null,
+    "window_start": null,
+    "window_end": null,
+    "cost_dkk": null,
+    "savings_dkk": null,
+    "plan_id": null,
+    "caveats": [
+     "Jeg har ikke adgang til kundens elaftale, faktura, forbrug eller adresse.",
+     "Spotpriser er ekskl. nettarif, elafgift og moms."
+    ]
+   },
+   "ttft_ms": 2492,
+   "type": "result",
+   "duration_ms": 4514,
+   "uuid": "38c8be18-27af-4510-928f-e3c2969f9b30",
+   "ttft_stream_ms": 586,
+   "time_to_request_ms": 15,
+   "first_content_frame_ms": 586,
+   "queued_turn_count": 0,
+   "result_index": 0
+  }
+ ],
+ "rate_limited_retries": 0,
+ "cost_cap_mode": "post hoc (listepris)"
+}

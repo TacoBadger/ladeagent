@@ -28,7 +28,7 @@ def rescore(label: str) -> None:
                         prompt_version=data["summary"]["prompt_version"], parsed=old["parsed"] or None,
                         raw_text=json.dumps(old["parsed"]) if old["parsed"] else "")
         res.tool_calls = [{"name": n, "args": {}, "is_error": False, "result_preview": ""} for n in old["tool_calls"]]
-        res.cli_cost_usd = old["cost_usd"]
+        res.cost_override = old["cost_usd"]  # prisen fra den oprindelige kørsel bevares
         res.latency_s = old["latency_s"]
         res.turns = old["turns"]
         # run-fejl fra den oprindelige kørsel bevares

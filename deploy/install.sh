@@ -24,6 +24,8 @@ curl -s -o /dev/null -w "local mcp initialize: HTTP %{http_code}\n" -X POST http
 # 2) Forsiden: statiske filer fra site/. nginx kan ikke læse /root, så de kopieres til /var/www.
 rm -rf /var/www/ladeagent.new
 cp -r site /var/www/ladeagent.new
+# Runde 2-tallene (evals/reports/quality.json) læses af forsiden som /quality.json
+[ -f evals/reports/quality.json ] && cp evals/reports/quality.json /var/www/ladeagent.new/quality.json
 chmod -R a+rX /var/www/ladeagent.new
 rm -rf /var/www/ladeagent.old
 [ -d /var/www/ladeagent ] && mv /var/www/ladeagent /var/www/ladeagent.old

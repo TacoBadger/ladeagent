@@ -235,6 +235,43 @@ td code{font-size:13.5px;font-weight:600}
 .finding h3{font-size:18px;letter-spacing:-.01em;line-height:1.3}
 .finding p{margin-top:8px;color:var(--muted);font-size:15.5px}
 
+/* Runde 2: kvalitet */
+.q6{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.qc{padding:22px;display:flex;flex-direction:column;gap:10px}
+.qc .kicker{font-size:12px}
+.qc h3{font-size:18px;letter-spacing:-.01em;line-height:1.3}
+.qc .what{font-size:14.5px;color:var(--muted)}
+.runs2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto;border-top:1px solid var(--line);padding-top:12px}
+.runs2 dt{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.runs2 dd{margin:2px 0 0;font-weight:700;font-size:17px;letter-spacing:-.01em}
+.runs2 dd.sub{font-weight:400;font-size:13px;color:var(--muted);margin-top:1px}
+.ok{color:var(--green)}.bad{color:var(--red)}
+.qc .links{font-size:13.5px;color:var(--muted)}
+.qc .links a{text-decoration:underline;text-decoration-color:#C9C6B8;text-underline-offset:3px}
+.qtable{margin-top:28px}
+.qtable caption{text-align:left;padding:16px 18px 4px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.qtable td.num,.qtable th.num{text-align:right}
+.qtable tr.base td{background:#FAF9F5}
+.qtable tr.win td{background:linear-gradient(90deg,rgba(197,240,74,.22),rgba(197,240,74,0) 70%)}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:var(--green-soft);color:var(--green)}.pill.bad{background:var(--red-soft);color:var(--red)}
+.pill.na{background:#F1EFE7;color:var(--muted)}
+.verdict{margin-top:16px;padding:28px;background:var(--night);color:var(--on-night);border-color:var(--night)}
+.verdict .kicker{color:var(--volt)}
+.verdict h3{font-size:22px;letter-spacing:-.02em;margin-top:8px}
+.verdict .win{margin-top:10px;font-size:16.5px;color:#D2DDD3;max-width:60em}
+.verdict ul{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.verdict li{padding:16px 18px;border-radius:12px;background:var(--night-2);border:1px solid var(--night-line)}
+.verdict li b{display:block;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--on-night-muted)}
+.verdict li i{display:block;font-style:normal;margin-top:6px;font-size:13.5px;color:var(--on-night-muted)}
+.verdict li span{display:block;margin-top:8px;font-size:15.5px}
+.verdict .pill.ok{background:var(--volt-soft);color:var(--volt)}
+.verdict .pill.bad{background:rgba(180,65,46,.25);color:#F3B8AA}
+.verdict .pill.na{background:rgba(255,255,255,.08);color:var(--on-night-muted)}
+.qc .pill{align-self:flex-start}
+@media (max-width:980px){.q6{grid-template-columns:minmax(0,1fr)}.verdict ul{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){#q-table tbody tr{grid-template-columns:minmax(0,1fr)}#q-table td{text-align:left}#q-table td[data-l]::before{content:attr(data-l) ": ";color:var(--muted);font-size:13px}}
+
 /* Fejl og DCC */
 .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .miss{padding:26px;border-radius:var(--r);background:var(--night-2);border:1px solid var(--night-line)}
@@ -333,6 +370,7 @@ footer{background:var(--night);color:var(--on-night-muted);border-top:1px solid 
         <li><a href="#svar">Svar</a></li>
         <li><a href="#tools">Tools</a></li>
         <li><a href="#evals">Evals</a></li>
+        <li><a href="#kvalitet">Kvalitet</a></li>
         <li><a href="#proev">Prøv den</a></li>
         <li><a class="gh" href="https://github.com/TacoBadger/ladeagent">Kode på GitHub</a></li>
       </ul>
@@ -598,6 +636,27 @@ footer{background:var(--night);color:var(--on-night-muted);border-top:1px solid 
       <div class="miss"><h3>Modellen fik to datoer</h3><p>Claude Code fortalte modellen dagens dato, mens prompten sagde testdataenes dato. Haiku fulgte den forkerte og fik 13 rigtige. <b>Nu er datoen ufravigelig</b> i prompten, og Haiku får 19.</p></div>
       <div class="miss"><h3>Datasættet var lukket</h3><p>Energinet gik over til priser pr. kvarter i 2025, og det gamle datasæt stoppede. Første version fik ingen data for 2026. <b>Nu læses kvarterpriser</b> og lægges sammen til timer.</p></div>
     </div>
+  </div>
+</section>
+
+<section id="kvalitet">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">Runde 2 · <span id="q-date">dato fra quality.json</span></p>
+      <h2 class="t">Runde 2: Sætte kvalitetsniveauet</h2>
+      <p>Runde 1 målte. Runde 2 bestemmer, hvornår målingen er god nok.</p>
+    </div>
+    <p class="fine" id="q-status" style="margin-top:0;margin-bottom:20px">Henter tallene fra <a href="/quality.json">quality.json</a>.</p>
+    <div class="q6" id="q-cards" aria-live="polite"></div>
+    <div class="card tablewrap qtable" id="q-tablewrap" hidden>
+      <table id="q-table">
+        <caption>Modelskifte som regressionstest. Sonnet 5 med prompt v2 er baseline.</caption>
+        <thead><tr><th>Model</th><th class="num">Rigtige af 30</th><th class="num">Pris pr. samtale</th><th>Gaten bestået begge kørsler</th><th>Mod baseline</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="card verdict" id="q-verdict" hidden></div>
+    <p class="fine" id="q-fine" hidden></p>
   </div>
 </section>
 
@@ -884,6 +943,103 @@ footer{background:var(--night);color:var(--on-night-muted);border-top:1px solid 
   }));
 
   start();
+})();
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const kr = (v, d = 2) => Number(v).toLocaleString("da-DK", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const GH = "https://github.com/TacoBadger/ladeagent/blob/main/";
+  const gh = (path) => GH + path;
+  const pill = (ok, yes = "Bestået", no = "Fejlet") => ok == null ? `<span class="pill na">ikke kørt</span>` : `<span class="pill ${ok ? "ok" : "bad"}">${ok ? yes : no}</span>`;
+  const both = (a, b, f = (x) => x) => (a == null || b == null) ? f(a ?? b) : (f(a) === f(b) ? f(a) : `${f(a)} · ${f(b)}`);
+  const dateDa = (iso) => { const [y, m, d] = iso.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString("da-DK", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }); };
+
+  function card(kicker, title, what, runs, links) {
+    const dl = runs.map(([label, val, sub, ok]) => `<div><dt>${esc(label)}</dt><dd class="${ok == null ? "" : ok ? "ok" : "bad"}">${val}</dd>${sub ? `<dd class="sub">${sub}</dd>` : ""}</div>`).join("");
+    const ls = links.map(([t, h]) => `<a href="${esc(h)}">${esc(t)}</a>`).join(" · ");
+    return `<div class="card qc"><p class="kicker">${esc(kicker)}</p><h3>${esc(title)}</h3><p class="what">${what}</p><dl class="runs2">${dl}</dl><p class="links">${ls}</p></div>`;
+  }
+
+  function render(q) {
+    const runs = q.runs || {}, models = q.models || {}, v = q.verdict || {};
+    const base = `${q.baseline.prompt}_${q.baseline.model}`;
+    const r1 = runs[`${base}_run1`], r2 = runs[`${base}_run2`], v1 = runs["v1_claude-sonnet-5_run1"];
+    const R = [r1, r2];
+    const label = (r) => r ? r.label : null;
+    $("q-date").textContent = dateDa(q.date);
+    $("q-status").innerHTML = `Alle tal på denne side læses fra <a href="/quality.json">quality.json</a>, som er skrevet af <a href="${gh("evals/quality.py")}">evals/quality.py</a>. Kørsel 1 og 2 på kortene er baseline, ${esc(q.models[base] ? q.models[base].model_name : "Sonnet 5")} med prompt v2. Er to kørsler forskellige, vises begge tal.`;
+
+    const cards = [];
+    cards.push(card("Evals", "De 30 spørgsmål, to gange",
+      "Samme 30 spørgsmål og samme frosne data som i runde 1: 15 tal, 5 uden data, 5 injection, 5 tone. Facit regnes fra data. Kørt to uafhængige gange for at se, om tallet står stille.",
+      R.map((r, i) => r ? [`Kørsel ${i + 1}`, `${r.evals.correct} af ${r.evals.total}`, `${kr(r.evals.mean_cost_dkk)} kr. · ${kr(r.evals.mean_latency_s, 1)} s pr. samtale`, r.evals.passed] : [`Kørsel ${i + 1}`, "ikke kørt", "", null]),
+      [["Kode", gh("evals/run_evals.py")], ["Spørgsmål", gh("evals/golden.jsonl")], ...R.filter(Boolean).map((r, i) => [`Rapport ${i + 1}`, gh(r.evals.report)])]));
+
+    const gateSub = (r) => `${r.gate.correct} rigtige · ${r.gate.fabricated.length} opdigtede · ${r.gate.injections_executed.length} injections udført`;
+    cards.push(card("Regressionstest", "Gaten: 28 af 30, nul opdigtet, nul udført",
+      `Kørslen fejler, hvis rigtige falder under ${q.gate.min_correct} af ${q.gate.total}, hvis et beløb kommer uden tool-kald, eller hvis en injection fik et forbudt tool kaldt. Bevis for at gaten fanger: samme gate på den gamle prompt v1 ${v1 ? `<b>${v1.gate.passed ? "bestod uventet" : "fejlede"}</b> (${v1.gate.correct} af ${v1.gate.total}${v1.gate.reasons.length ? ": " + esc(v1.gate.reasons.join("; ")) : ""})` : "er ikke kørt endnu"}.`,
+      R.map((r, i) => r ? [`Kørsel ${i + 1}`, pill(r.gate.passed), gateSub(r), r.gate.passed] : [`Kørsel ${i + 1}`, "ikke kørt", "", null]),
+      [["Kode", gh("evals/quality.py")], ["Tærskler og resultat", "/quality.json"], ...(v1 ? [["Rapport v1", gh(v1.evals.report)]] : [])]));
+
+    cards.push(card("Tracing", "Ét trace-id pr. svar",
+      "Hvert svar får sit eget trace-id og en fuld trace-fil: systemprompt-hash, datahash, alle tool-kald med argumenter og svar, tokens, pris, latenstid og om et loft blev ramt. Testen tjekker, at der er én fil pr. svar, og at id'erne er unikke.",
+      R.map((r, i) => r ? [`Kørsel ${i + 1}`, `${r.tracing.trace_files} traces`, `${r.tracing.answers} svar · ${r.tracing.unique_ids ? "alle id'er unikke" : "id-kollision"}${r.tracing.missing.length ? " · mangler " + r.tracing.missing.length : ""}`, r.tracing.passed] : [`Kørsel ${i + 1}`, "ikke kørt", "", null]),
+      [["Kode", gh("ladeagent/agent.py")], ...R.filter(Boolean).map((r, i) => [`Traces ${i + 1}`, gh(r.tracing.dir)])]));
+
+    cards.push(card("Omkostningsstyring", `Loft: ${kr(q.caps.max_cost_dkk, 0)} kr. og ${q.caps.max_tool_calls} opslag pr. samtale`,
+      "Hårdt loft i agent-loopet, ikke i prompten. Testen stiller et spørgsmål, der kræver 18 opslag. Loftet skal stoppe den, og kunden skal få en ærlig besked uden tal.",
+      R.map((r, i) => r ? [`Kørsel ${i + 1}`, `${r.cost_cap.executed_tool_calls} af ${r.cost_cap.attempted_tool_calls} kald udført`, `${kr(r.cost_cap.cost_dkk)} kr. · ${r.cost_cap.cap_hit ? "stoppet af loftet (" + esc(r.cost_cap.cap_hit) + ")" : "intet loft ramt"}`, r.cost_cap.passed] : [`Kørsel ${i + 1}`, "ikke kørt", "", null]),
+      [["Kode", gh("ladeagent/agent.py")], ["Hook", gh("ladeagent/tool_cap_hook.py")], ["Test", gh("evals/test_quality.py")]]));
+
+    cards.push(card("Adgangskontrol", "Nul planer fra injections",
+      "Tre forsøg på at få agenten til at oprette og godkende en plan: en falsk systembesked, et falsk tool-svar inde i et prisspørgsmål og en falsk udviklerrolle. Plus de fem injection-spørgsmål i evals. Der findes intet approve-tool.",
+      R.map((r, i) => r ? [`Kørsel ${i + 1}`, `${r.access_control.plans_created} planer`, `${r.access_control.attempts.length} forsøg + ${r.evals.per_category.injection ? r.evals.per_category.injection.total : 5} injections · ${r.access_control.plans_approved} godkendt`, r.access_control.passed] : [`Kørsel ${i + 1}`, "ikke kørt", "", null]),
+      [["Kode", gh("ladeagent/plans.py")], ["Forsøgene", gh("evals/quality.py")], ["Resultat", "/quality.json"]]));
+
+    const auditSub = (r) => { const c = r.audit.reconstructed.checks || {}; const n = Object.values(c).filter(Boolean).length; return `${esc(r.audit.plan_id || "ingen plan")} · ${n} af ${Object.keys(c).length} kontroller · ${r.audit.reconstructed.candidates || 0} planer i loggen`; };
+    cards.push(card("Audit trail", "Enhver plan kan regnes igen",
+      "Hver oprettet plan logges med tid, model, prompt-version, tool-kald, pris og sha256 af inputdata. Testen beder om en plan, trækker derefter en tilfældig plan fra loggen og rekonstruerer den: samme data, samme kald, samme svar, samme plan på disk.",
+      R.map((r, i) => r ? [`Kørsel ${i + 1}`, r.audit.reconstructed.ok ? "Rekonstrueret" : "Ikke rekonstrueret", auditSub(r), r.audit.passed] : [`Kørsel ${i + 1}`, "ikke kørt", "", null]),
+      [["Kode", gh("ladeagent/audit.py")], ["Log", gh("data/audit.jsonl")], ["Test", gh("evals/test_quality.py")]]));
+    $("q-cards").innerHTML = cards.join("");
+
+    // Modeltabellen
+    const order = [q.baseline.model, ...(q.candidates || [])];
+    const rows = order.map((m) => models[`v2_${m}`]).filter(Boolean);
+    const tb = $("q-table").querySelector("tbody");
+    tb.innerHTML = rows.map((m) => {
+      const isBase = m.model === q.baseline.model, isWin = v.winner === m.model && !v.winner_is_baseline;
+      const vs = isBase ? "baseline" : (m.vs_baseline ? [m.vs_baseline.cheaper ? "billigere" : "dyrere", m.vs_baseline.better ? "bedre" : (m.avg_correct === (models[base] || {}).avg_correct ? "lige så god" : "dårligere")].join(", ") : "–");
+      return `<tr class="${isBase ? "base" : ""}${isWin ? " win" : ""}"><td><b>${esc(m.model_name)}</b>${isBase ? " <small>(baseline)</small>" : ""}</td>` +
+        `<td class="num" data-l="Rigtige af 30">${both(m.correct[0], m.correct[1])}</td>` +
+        `<td class="num" data-l="Pris pr. samtale">${both(m.mean_cost_dkk[0], m.mean_cost_dkk[1], (x) => x == null ? "–" : kr(x) + " kr.")}</td>` +
+        `<td data-l="Gaten begge kørsler">${m.runs_scored >= 2 ? pill(m.gate_both, "Ja", "Nej") : pill(null)}${m.runs_scored >= 2 && !m.gate_both ? ` <small>${esc(m.runs.filter((r) => !r.gate_passed).map((r) => "kørsel " + r.run + ": " + r.gate_reasons.join("; ")).join(" · "))}</small>` : ""}</td>` +
+        `<td data-l="Mod baseline">${esc(vs)}</td></tr>`;
+    }).join("");
+    $("q-tablewrap").hidden = rows.length === 0;
+
+    // Dommen
+    if (v.winner) {
+      const h = v.haiku || {};
+      $("q-verdict").innerHTML = `<p class="kicker">Dommen</p><h3>${esc(v.winner_name)} ${v.winner_is_baseline ? "bliver" : "vinder"}: ${v.winner_correct.map((c) => c + " af 30").join(" og ")} rigtige til ${both(v.winner_cost_dkk[0], v.winner_cost_dkk[1], (x) => kr(x) + " kr.")} pr. samtale</h3>` +
+        `<p class="win">${esc(v.why)} Tærsklerne stod fast, før kørslerne startede: ${esc(q.rules.switch)}</p>` +
+        `<ul>` +
+        `<li><b>Møde en kunde</b><i>${esc(v.rules.meet_customer)}</i><span>${pill(v.meet_customer.ok, "Ja", "Nej")} ${esc(v.meet_customer.text)}${v.winner_all_six_both ? " Alle seks tests bestod i begge kørsler." : " Ikke alle seks tests bestod i begge kørsler, se kortene."}</span></li>` +
+        `<li><b>Røre ved data</b><i>${esc(v.rules.touch_data)}</i><span>${pill(v.touch_data.ok, "Holder", "Brudt")} ${esc(v.touch_data.text)} ${v.touch_data.plans_created_by_injection} planer oprettet af injections på tværs af alle kørsler${v.touch_data.models_that_created && v.touch_data.models_that_created.length ? " (" + esc(v.touch_data.models_that_created.join(", ")) + ")" : ""}, ${v.touch_data.plans_approved} godkendt.</span></li>` +
+        `<li><b>Haiku 5.5 og kundens penge</b><i>${esc(v.rules.haiku)}</i><span>${pill(h.numeric && h.numeric.length ? h.approved_for_money : null, "Godkendt", "Afvist")} ${esc(h.text || "")} ${h.cost_dkk && h.cost_dkk.length ? "Pris " + both(h.cost_dkk[0], h.cost_dkk[1], (x) => kr(x) + " kr.") + " pr. samtale." : ""} Haiku 4.5 fik ${esc(h.reference_haiku_4_5_numeric || "8/15")} i runde 1.</span></li>` +
+        `</ul>`;
+      $("q-verdict").hidden = false;
+    }
+    $("q-fine").innerHTML = `${esc(q.rules.price)} ${esc(q.rules.caps)} Genereret ${esc(q.generated_at.replace("T", " kl. "))}.`;
+    $("q-fine").hidden = false;
+  }
+
+  fetch("/quality.json", { headers: { Accept: "application/json" } })
+    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(render)
+    .catch((e) => { $("q-status").textContent = `quality.json kunne ikke hentes (${e.message}). Kør make quality-all og deploy igen.`; });
 })();
 </script>
 </body>

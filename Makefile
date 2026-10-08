@@ -1,8 +1,10 @@
-.PHONY: setup snapshot golden test mcp inspector ask ask-cli eval eval-cli eval-all eval-all-cli report clean
+.PHONY: setup snapshot golden test mcp inspector ask ask-cli eval eval-cli eval-all eval-all-cli report quality quality-all quality-merge clean
 PY=.venv/bin/python
 PROMPT?=v2
 MODEL?=claude-opus-5
 Q?=Hvornår skal jeg lade i nat? Jeg bor i København, 40 kWh, 11 kW ladeboks.
+RUN?=1
+BACKEND?=claude-cli
 
 setup:            ## venv + afhængigheder + pakke
 	python3 -m venv .venv && .venv/bin/pip install -q -r requirements.txt pytest-asyncio && .venv/bin/pip install -q -e .
@@ -48,6 +50,17 @@ eval-all-cli:     ## de fire kørsler, via Claude Code-abonnement
 
 report:           ## vis sammenligningen
 	@cat evals/reports/summary.md
+
+quality:          ## runde 2: alle seks tests for én model og kørsel: make quality MODEL=claude-sonnet-5 RUN=1
+	$(PY) -m evals.quality --prompt $(PROMPT) --model $(MODEL) --run $(RUN) --backend $(BACKEND)
+
+quality-all:      ## runde 2: v1-beviset + baseline og tre kandidater, to kørsler hver (9 x 30 spørgsmål)
+	$(PY) -m evals.quality --prompt v1 --model claude-sonnet-5 --run 1 --backend $(BACKEND) --expect fail
+	for m in claude-sonnet-5 claude-sonnet-5-5 claude-haiku-5-5 claude-fable-5-1; do for r in 1 2; do \
+	  $(PY) -m evals.quality --prompt v2 --model $$m --run $$r --backend $(BACKEND) || exit 1; done; done
+
+quality-merge:    ## saml evals/reports/quality/*.json til quality.json og vis dommen
+	$(PY) -m evals.quality --merge
 
 clean:
 	rm -rf data/cache traces/*.jsonl .pytest_cache

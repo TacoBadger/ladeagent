@@ -1,0 +1,783 @@
+{
+ "trace_id": "5905a8ea1c",
+ "run_id": "5905a8ea1c",
+ "ts": "2026-10-08T17:57:56",
+ "model": "claude-sonnet-5-5",
+ "prompt_version": "v2",
+ "backend": "claude-cli",
+ "question": "Hvor grøn er strømmen i dag i Jylland?",
+ "parsed": {
+  "answer": "I dag (14. september) i Jylland/Fyn (DK1) er CO2-prognosen i gennemsnit 146,7 g/kWh. Grønnest er kl. 00–01 med 99,6 g/kWh, og mest CO2-tungt er kl. 18–19 med 204,9 g/kWh. Efter kl. 17 er strømmen generelt mindre grøn (ca. 160–205 g/kWh). Midt på dagen kl. 12–16 ligger den omkring 103–118 g/kWh. Vind og sol stod for 69,3 % af produktionen i DK1 (havvind 25,7 %, landvind 24,3 %, sol 19,3 %).",
+  "answer_type": "data",
+  "area": "DK1",
+  "window_start": "2026-09-14T00:00",
+  "window_end": "2026-09-15T00:00",
+  "cost_dkk": null,
+  "savings_dkk": null,
+  "plan_id": null,
+  "caveats": [
+   "CO2 er en prognose fra Energinet og gælder strømmen i nettet, ikke en bestemt elaftale",
+   "Produktionsandele gælder kun produktion i DK1, uden import/eksport"
+  ]
+ },
+ "raw_text": "{\"answer\": \"I dag (14. september) i Jylland/Fyn (DK1) er CO2-prognosen i gennemsnit 146,7 g/kWh. Grønnest er kl. 00–01 med 99,6 g/kWh, og mest CO2-tungt er kl. 18–19 med 204,9 g/kWh. Efter kl. 17 er strømmen generelt mindre grøn (ca. 160–205 g/kWh). Midt på dagen kl. 12–16 ligger den omkring 103–118 g/kWh. Vind og sol stod for 69,3 % af produktionen i DK1 (havvind 25,7 %, landvind 24,3 %, sol 19,3 %).\", \"answer_type\": \"data\", \"area\": \"DK1\", \"window_start\": \"2026-09-14T00:00\", \"window_end\": \"2026-09-15T00:00\", \"cost_dkk\": null, \"savings_dkk\": null, \"plan_id\": null, \"caveats\": [\"CO2 er en prognose fra Energinet og gælder strømmen i nettet, ikke en bestemt elaftale\", \"Produktionsandele gælder kun produktion i DK1, uden import/eksport\"]}",
+ "tool_calls": [
+  {
+   "name": "get_co2_intensity",
+   "args": {
+    "area": "DK1",
+    "start": "2026-09-14T00:00",
+    "end": "2026-09-15T00:00"
+   },
+   "is_error": false,
+   "executed": true,
+   "result_preview": "{\"area\": \"DK1\", \"start\": \"2026-09-14T00:00\", \"end\": \"2026-09-15T00:00\", \"unit\": \"g CO2/kWh\", \"resolution\": \"time\", \"hours\": [{\"hour_start\": \"2026-09-14T00:00\", \"g_per_kwh\": 99.6}, {\"hour_start\": \"2026-09-14T01:00\", \"g_per_kwh\": 115.8}, {\"hour_start\": \"2026-09-14T02:00\", \"g_per_kwh\": 118.0}, {\"hour_s",
+   "result": "{\"area\": \"DK1\", \"start\": \"2026-09-14T00:00\", \"end\": \"2026-09-15T00:00\", \"unit\": \"g CO2/kWh\", \"resolution\": \"time\", \"hours\": [{\"hour_start\": \"2026-09-14T00:00\", \"g_per_kwh\": 99.6}, {\"hour_start\": \"2026-09-14T01:00\", \"g_per_kwh\": 115.8}, {\"hour_start\": \"2026-09-14T02:00\", \"g_per_kwh\": 118.0}, {\"hour_start\": \"2026-09-14T03:00\", \"g_per_kwh\": 125.0}, {\"hour_start\": \"2026-09-14T04:00\", \"g_per_kwh\": 133.7}, {\"hour_start\": \"2026-09-14T05:00\", \"g_per_kwh\": 151.4}, {\"hour_start\": \"2026-09-14T06:00\", \"g_per_kwh\": 168.1}, {\"hour_start\": \"2026-09-14T07:00\", \"g_per_kwh\": 167.4}, {\"hour_start\": \"2026-09-14T08:00\", \"g_per_kwh\": 163.4}, {\"hour_start\": \"2026-09-14T09:00\", \"g_per_kwh\": 163.6}, {\"hour_start\": \"2026-09-14T10:00\", \"g_per_kwh\": 143.7}, {\"hour_start\": \"2026-09-14T11:00\", \"g_per_kwh\": 123.3}, {\"hour_start\": \"2026-09-14T12:00\", \"g_per_kwh\": 109.2}, {\"hour_start\": \"2026-09-14T13:00\", \"g_per_kwh\": 116.6}, {\"hour_start\": \"2026-09-14T14:00\", \"g_per_kwh\": 117.9}, {\"hour_start\": \"2026-09-14T15:00\", \"g_per_kwh\": 102.7}, {\"hour_start\": \"2026-09-14T16:00\", \"g_per_kwh\": 128.2}, {\"hour_start\": \"2026-09-14T17:00\", \"g_per_kwh\": 185.7}, {\"hour_start\": \"2026-09-14T18:00\", \"g_per_kwh\": 204.9}, {\"hour_start\": \"2026-09-14T19:00\", \"g_per_kwh\": 189.2}, {\"hour_start\": \"2026-09-14T20:00\", \"g_per_kwh\": 191.7}, {\"hour_start\": \"2026-09-14T21:00\", \"g_per_kwh\": 178.1}, {\"hour_start\": \"2026-09-14T22:00\", \"g_per_kwh\": 166.8}, {\"hour_start\": \"2026-09-14T23:00\", \"g_per_kwh\": 158.0}], \"mean_g_per_kwh\": 146.7, \"greenest_hour\": {\"hour_start\": \"2026-09-14T00:00\", \"g_per_kwh\": 99.6}, \"dirtiest_hour\": {\"hour_start\": \"2026-09-14T18:00\", \"g_per_kwh\": 204.9}, \"note\": \"Prognose fra Energinet (CO2EmisProg). Tallet er for strømmen i nettet, ikke for kundens elaftale.\", \"source\": \"Energi Data Service / CO2EmisProg (snapshot)\"}"
+  },
+  {
+   "name": "get_generation_mix",
+   "args": {
+    "area": "DK1",
+    "start": "2026-09-14T00:00",
+    "end": "2026-09-15T00:00"
+   },
+   "is_error": false,
+   "executed": true,
+   "result_preview": "{\"area\": \"DK1\", \"start\": \"2026-09-14T00:00\", \"end\": \"2026-09-15T00:00\", \"unit\": \"% af produktion i området\", \"shares_pct\": {\"havvind\": 25.7, \"landvind\": 24.3, \"sol\": 19.3, \"centrale_vaerker\": 22.3, \"decentrale_vaerker\": 8.4}, \"wind_and_solar_pct\": 69.3, \"note\": \"Kun produktion i prisområdet; import/",
+   "result": "{\"area\": \"DK1\", \"start\": \"2026-09-14T00:00\", \"end\": \"2026-09-15T00:00\", \"unit\": \"% af produktion i området\", \"shares_pct\": {\"havvind\": 25.7, \"landvind\": 24.3, \"sol\": 19.3, \"centrale_vaerker\": 22.3, \"decentrale_vaerker\": 8.4}, \"wind_and_solar_pct\": 69.3, \"note\": \"Kun produktion i prisområdet; import/eksport er ikke med. Realtidsdata, kun for tidspunkter der er passeret.\", \"source\": \"Energi Data Service / ElectricityProdex5MinRealtime (snapshot)\"}"
+  }
+ ],
+ "turns": 5,
+ "usage": {
+  "input_tokens": 6,
+  "output_tokens": 941,
+  "cache_read": 62605,
+  "cache_write": 6746
+ },
+ "cost_usd": 0.038808,
+ "cost_dkk": 0.2678,
+ "cli_cost_usd": 0.12231750000000001,
+ "latency_s": 12.19,
+ "stop_reason": "tool_use",
+ "cap_hit": null,
+ "error": null,
+ "system_sha256": "ad9577a9e7c3f7f88cfa74811ad25eff6cb02c28ccbc776e57ccac94dac41db7",
+ "data_sha256": "7df8043128c7b2bf0136b74a119240fe697744c3cb11575151ed89c79b277534",
+ "data_source": "snapshot",
+ "caps": {
+  "max_cost_dkk": 2.0,
+  "max_tool_calls": 10
+ },
+ "events": [
+  {
+   "type": "system",
+   "subtype": "hook_started",
+   "hook_id": "94f2232f-f829-4f59-8865-5bd1d2881cd5",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "uuid": "5243f4bc-9918-43bf-882a-f01faca682c3",
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812"
+  },
+  {
+   "type": "system",
+   "subtype": "hook_response",
+   "hook_id": "94f2232f-f829-4f59-8865-5bd1d2881cd5",
+   "hook_name": "SessionStart:startup",
+   "hook_event": "SessionStart",
+   "output": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stdout": "/last30days: Ready — 5 sources active.\n  Research any topic across social + market + web sources (last 30 days).\n  Last run: \"AI explainer videos on TikTok\" · 12d ago · 84 results\n  Tip: Add ScrapeCreators for Reddit comments + TikTok + Instagram.\n  100 free credits, no credit card — scrapecreators.com\n  last30days has no affiliation with any API provider.\n",
+   "stderr": "",
+   "exit_code": 0,
+   "outcome": "success",
+   "uuid": "6da90d2d-4a5e-4740-9c4d-8b9e8249f7b0",
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812"
+  },
+  {
+   "type": "system",
+   "subtype": "init",
+   "cwd": "~/Desktop/ladeagent",
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "tools": [
+    "Artifact",
+    "ArtifactComments",
+    "ArtifactData",
+    "CronCreate",
+    "CronDelete",
+    "CronList",
+    "DesignSync",
+    "EnterWorktree",
+    "ExitWorktree",
+    "ListAgents",
+    "ListMcpResourcesTool",
+    "Monitor",
+    "PushNotification",
+    "ReadMcpResourceDirTool",
+    "ReadMcpResourceTool",
+    "RemoteTrigger",
+    "ReportFindings",
+    "ScheduleWakeup",
+    "SendMessage",
+    "Skill",
+    "StructuredOutput",
+    "TaskOutput",
+    "TaskStop",
+    "ToolSearch",
+    "Workflow",
+    "mcp__ladeagent__create_charging_plan",
+    "mcp__ladeagent__estimate_cost",
+    "mcp__ladeagent__find_cheapest_window",
+    "mcp__ladeagent__get_co2_intensity",
+    "mcp__ladeagent__get_day_ahead_prices",
+    "mcp__ladeagent__get_generation_mix",
+    "mcp__ladeagent__get_plan_status"
+   ],
+   "mcp_servers": [
+    {
+     "name": "ladeagent",
+     "status": "connected"
+    }
+   ],
+   "model": "claude-sonnet-5-5",
+   "permissionMode": "default",
+   "slash_commands": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator",
+    "advisor",
+    "agents",
+    "auto-mode-setup",
+    "autocompact",
+    "clear",
+    "color",
+    "compact",
+    "config",
+    "output-style",
+    "context",
+    "effort",
+    "fast",
+    "heapdump",
+    "init",
+    "mcp",
+    "import",
+    "model",
+    "__remote-workflow",
+    "workflow-launch-exec",
+    "reload-plugins",
+    "reload-skills",
+    "rename",
+    "ultrareview",
+    "security-review",
+    "usage-credits",
+    "extra-usage",
+    "usage",
+    "insights",
+    "recap",
+    "skill-doctor",
+    "goal",
+    "design-consent",
+    "design-revoke",
+    "list-agents",
+    "team-onboarding"
+   ],
+   "terminal_slash_commands": [
+    "doctor",
+    "color",
+    "reload-plugins"
+   ],
+   "apiKeySource": "none",
+   "claude_code_version": "2.1.271",
+   "output_style": "default",
+   "agents": [
+    "claude",
+    "claude-code-guide",
+    "Explore",
+    "general-purpose",
+    "Plan",
+    "statusline-setup"
+   ],
+   "skills": [
+    "deep-research",
+    "last30days:last30days",
+    "design",
+    "slides",
+    "design-sync",
+    "dataviz",
+    "artifact-diagramming",
+    "artifact-capabilities",
+    "update-config",
+    "verify",
+    "debug",
+    "code-review",
+    "simplify",
+    "batch",
+    "fewer-permission-prompts",
+    "doctor",
+    "loop",
+    "schedule",
+    "claude-api",
+    "workflow-authoring",
+    "run",
+    "run-skill-generator"
+   ],
+   "capabilities": [
+    "interrupt_receipt_v1",
+    "interrupt_cancel_queued_v1",
+    "msg_lifecycle_v1"
+   ],
+   "analytics_disabled": false,
+   "product_feedback_disabled": false,
+   "uuid": "e4ab7bb0-4417-4608-bad2-82ee419a5896",
+   "messaging_socket_path": "/tmp/cc-socks/74430.sock",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011Cfq3aav96HbqaijcfGPxo",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "",
+      "signature": "CAQSkAUKEAgSGAI4AUIIdGhpbmtpbmcSDKRU3lu4v31K5A370xoMAPpR8p/Fxf0KYkixIjDcFv6nPpr1vzWpPVAxPUkJK8///e7tBT8OAuF9k5Q81QtpxqrZtiVYsukK8iz3BlkqrQSsRkptikLfw45pzJmW7TzlAilv7ukVv/sNemZIGccfEb8pak4Zx2T8wgBVpyrdtwlXHiz7LNwhXvkQnOcUMBOwpTEgrsHOuXtszIIICLVRz3j72ZepzOeY1n+S5CpALVv24eY60ani51deRPs6RAh+v7O8fsPabr0IkTV79/d7QEnNr7dnHC2rYr/djLRreg4MM4V2zaDgaye4oF14+8yxoTaXatDoGrMZi3nmHMUtKhAxjl73S6ptWAUYXAD+NWAF019mjl5sJh1PvZReTmxw5SnoAGOzqnSLGjC2dbJb7zsRYacSK8XKP1VwsoCTIAB1OdcMMIB4u8dP+IyaptIwilcnyO2LiqC+fRUc1Fn8kkFXgf8lxKrCZQW1Bx3M+cHuvDu4qgBMUBp/g7dIvM/pXezZc9eOyYFrQnt63dapPidEybrTbUaPZJrD17pptMLpOI5K26p7+EOTq3MCDecJdxIoa6DtKFOcsEDR+no8NIvmZdKnnHXue0kRsUOTKn4w4974ghh7jTSxCSJDiGaFaDNvyAj5pd93k2vSLpr2UetvUgdtu/Y1q458xwaM4xRMmkvWdXUzodPY1lUn0Yrte2nOv5z49jGWll6+CzYhE6hQrmTRkoGQA6TgE1OJg9PuTpvKCEoNh5wduujzfszEJak0lCEv6BhfxJinKab8Ny+ok89TFH915UgVd0QIcglNSVAefKqqgQ+9zFYJz7lpz1y8FGpYo3mZSUkOdhgB"
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4070,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4070
+     },
+     "output_tokens": 7,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "uuid": "274c8da6-64a9-4a05-b5f1-b39fcec840f7",
+   "timestamp": "2026-10-08T15:57:47.578Z",
+   "request_id": "req_011Cfq3aZQccTa37kBbfxMMr"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011Cfq3aav96HbqaijcfGPxo",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_012VdtH8ShTixqRznobetfTR",
+      "name": "ToolSearch",
+      "input": {
+       "query": "select:mcp__ladeagent__get_co2_intensity,mcp__ladeagent__get_generation_mix",
+       "max_results": 5
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 4070,
+     "cache_read_input_tokens": 17892,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4070
+     },
+     "output_tokens": 7,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "uuid": "3236ecb7-de8f-4e72-87a0-c0a1c404140e",
+   "timestamp": "2026-10-08T15:57:48.075Z",
+   "request_id": "req_011Cfq3aZQccTa37kBbfxMMr",
+   "wire_tool_inputs": {
+    "toolu_012VdtH8ShTixqRznobetfTR": {
+     "query": "select:mcp__ladeagent__get_co2_intensity,mcp__ladeagent__get_generation_mix",
+     "max_results": 5
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "type": "tool_result",
+      "tool_use_id": "toolu_012VdtH8ShTixqRznobetfTR",
+      "content": [
+       {
+        "type": "tool_reference",
+        "tool_name": "mcp__ladeagent__get_co2_intensity"
+       },
+       {
+        "type": "tool_reference",
+        "tool_name": "mcp__ladeagent__get_generation_mix"
+       }
+      ]
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "uuid": "8435a282-c11c-4741-910c-2df0b9783e97",
+   "timestamp": "2026-10-08T15:57:48.082Z",
+   "tool_use_result": {
+    "matches": [
+     "mcp__ladeagent__get_co2_intensity",
+     "mcp__ladeagent__get_generation_mix"
+    ],
+    "query": "select:mcp__ladeagent__get_co2_intensity,mcp__ladeagent__get_generation_mix",
+    "total_deferred_tools": 24
+   }
+  },
+  {
+   "type": "rate_limit_event",
+   "rate_limit_info": {
+    "status": "allowed",
+    "resetsAt": 1791485400,
+    "rateLimitType": "five_hour",
+    "overageStatus": "rejected",
+    "overageDisabledReason": "org_level_disabled",
+    "isUsingOverage": false,
+    "unifiedWindows": {
+     "five_hour": {
+      "utilization": 0.38,
+      "resetsAt": 1791485400
+     },
+     "seven_day": {
+      "utilization": 0.5,
+      "resetsAt": 1791583200
+     }
+    }
+   },
+   "uuid": "e670e840-4848-4527-ae8c-2420ff213601",
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812"
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011Cfq3an19dMtYi2effK5fw",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01WkgptEqZKJc9J5MXgCLjm7",
+      "name": "mcp__ladeagent__get_co2_intensity",
+      "input": {
+       "area": "DK1",
+       "start": "2026-09-14T00:00",
+       "end": "2026-09-15T00:00"
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 789,
+     "cache_read_input_tokens": 21962,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 789
+     },
+     "output_tokens": 32,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "uuid": "ce903a1d-2d3c-4865-a7e1-0220241b9aaa",
+   "timestamp": "2026-10-08T15:57:50.158Z",
+   "request_id": "req_011Cfq3ammG2U54rZ7hmgykF",
+   "wire_tool_inputs": {
+    "toolu_01WkgptEqZKJc9J5MXgCLjm7": {
+     "area": "DK1",
+     "start": "2026-09-14T00:00",
+     "end": "2026-09-15T00:00"
+    }
+   },
+   "tool_use_meta": [
+    {
+     "id": "toolu_01WkgptEqZKJc9J5MXgCLjm7",
+     "display_name": "Get Co2 Intensity",
+     "server_display_name": "ladeagent"
+    }
+   ]
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_01WkgptEqZKJc9J5MXgCLjm7",
+      "type": "tool_result",
+      "content": "{\"result\":\"{\\\"area\\\": \\\"DK1\\\", \\\"start\\\": \\\"2026-09-14T00:00\\\", \\\"end\\\": \\\"2026-09-15T00:00\\\", \\\"unit\\\": \\\"g CO2/kWh\\\", \\\"resolution\\\": \\\"time\\\", \\\"hours\\\": [{\\\"hour_start\\\": \\\"2026-09-14T00:00\\\", \\\"g_per_kwh\\\": 99.6}, {\\\"hour_start\\\": \\\"2026-09-14T01:00\\\", \\\"g_per_kwh\\\": 115.8}, {\\\"hour_start\\\": \\\"2026-09-14T02:00\\\", \\\"g_per_kwh\\\": 118.0}, {\\\"hour_start\\\": \\\"2026-09-14T03:00\\\", \\\"g_per_kwh\\\": 125.0}, {\\\"hour_start\\\": \\\"2026-09-14T04:00\\\", \\\"g_per_kwh\\\": 133.7}, {\\\"hour_start\\\": \\\"2026-09-14T05:00\\\", \\\"g_per_kwh\\\": 151.4}, {\\\"hour_start\\\": \\\"2026-09-14T06:00\\\", \\\"g_per_kwh\\\": 168.1}, {\\\"hour_start\\\": \\\"2026-09-14T07:00\\\", \\\"g_per_kwh\\\": 167.4}, {\\\"hour_start\\\": \\\"2026-09-14T08:00\\\", \\\"g_per_kwh\\\": 163.4}, {\\\"hour_start\\\": \\\"2026-09-14T09:00\\\", \\\"g_per_kwh\\\": 163.6}, {\\\"hour_start\\\": \\\"2026-09-14T10:00\\\", \\\"g_per_kwh\\\": 143.7}, {\\\"hour_start\\\": \\\"2026-09-14T11:00\\\", \\\"g_per_kwh\\\": 123.3}, {\\\"hour_start\\\": \\\"2026-09-14T12:00\\\", \\\"g_per_kwh\\\": 109.2}, {\\\"hour_start\\\": \\\"2026-09-14T13:00\\\", \\\"g_per_kwh\\\": 116.6}, {\\\"hour_start\\\": \\\"2026-09-14T14:00\\\", \\\"g_per_kwh\\\": 117.9}, {\\\"hour_start\\\": \\\"2026-09-14T15:00\\\", \\\"g_per_kwh\\\": 102.7}, {\\\"hour_start\\\": \\\"2026-09-14T16:00\\\", \\\"g_per_kwh\\\": 128.2}, {\\\"hour_start\\\": \\\"2026-09-14T17:00\\\", \\\"g_per_kwh\\\": 185.7}, {\\\"hour_start\\\": \\\"2026-09-14T18:00\\\", \\\"g_per_kwh\\\": 204.9}, {\\\"hour_start\\\": \\\"2026-09-14T19:00\\\", \\\"g_per_kwh\\\": 189.2}, {\\\"hour_start\\\": \\\"2026-09-14T20:00\\\", \\\"g_per_kwh\\\": 191.7}, {\\\"hour_start\\\": \\\"2026-09-14T21:00\\\", \\\"g_per_kwh\\\": 178.1}, {\\\"hour_start\\\": \\\"2026-09-14T22:00\\\", \\\"g_per_kwh\\\": 166.8}, {\\\"hour_start\\\": \\\"2026-09-14T23:00\\\", \\\"g_per_kwh\\\": 158.0}], \\\"mean_g_per_kwh\\\": 146.7, \\\"greenest_hour\\\": {\\\"hour_start\\\": \\\"2026-09-14T00:00\\\", \\\"g_per_kwh\\\": 99.6}, \\\"dirtiest_hour\\\": {\\\"hour_start\\\": \\\"2026-09-14T18:00\\\", \\\"g_per_kwh\\\": 204.9}, \\\"note\\\": \\\"Prognose fra Energinet (CO2EmisProg). Tallet er for strømmen i nettet, ikke for kundens elaftale.\\\", \\\"source\\\": \\\"Energi Data Service / CO2EmisProg (snapshot)\\\"}\"}"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "uuid": "fdc47fb2-6f5c-4c26-a769-113b0f3b7205",
+   "timestamp": "2026-10-08T15:57:50.269Z",
+   "tool_use_result": {
+    "content": "{\"result\":\"{\\\"area\\\": \\\"DK1\\\", \\\"start\\\": \\\"2026-09-14T00:00\\\", \\\"end\\\": \\\"2026-09-15T00:00\\\", \\\"unit\\\": \\\"g CO2/kWh\\\", \\\"resolution\\\": \\\"time\\\", \\\"hours\\\": [{\\\"hour_start\\\": \\\"2026-09-14T00:00\\\", \\\"g_per_kwh\\\": 99.6}, {\\\"hour_start\\\": \\\"2026-09-14T01:00\\\", \\\"g_per_kwh\\\": 115.8}, {\\\"hour_start\\\": \\\"2026-09-14T02:00\\\", \\\"g_per_kwh\\\": 118.0}, {\\\"hour_start\\\": \\\"2026-09-14T03:00\\\", \\\"g_per_kwh\\\": 125.0}, {\\\"hour_start\\\": \\\"2026-09-14T04:00\\\", \\\"g_per_kwh\\\": 133.7}, {\\\"hour_start\\\": \\\"2026-09-14T05:00\\\", \\\"g_per_kwh\\\": 151.4}, {\\\"hour_start\\\": \\\"2026-09-14T06:00\\\", \\\"g_per_kwh\\\": 168.1}, {\\\"hour_start\\\": \\\"2026-09-14T07:00\\\", \\\"g_per_kwh\\\": 167.4}, {\\\"hour_start\\\": \\\"2026-09-14T08:00\\\", \\\"g_per_kwh\\\": 163.4}, {\\\"hour_start\\\": \\\"2026-09-14T09:00\\\", \\\"g_per_kwh\\\": 163.6}, {\\\"hour_start\\\": \\\"2026-09-14T10:00\\\", \\\"g_per_kwh\\\": 143.7}, {\\\"hour_start\\\": \\\"2026-09-14T11:00\\\", \\\"g_per_kwh\\\": 123.3}, {\\\"hour_start\\\": \\\"2026-09-14T12:00\\\", \\\"g_per_kwh\\\": 109.2}, {\\\"hour_start\\\": \\\"2026-09-14T13:00\\\", \\\"g_per_kwh\\\": 116.6}, {\\\"hour_start\\\": \\\"2026-09-14T14:00\\\", \\\"g_per_kwh\\\": 117.9}, {\\\"hour_start\\\": \\\"2026-09-14T15:00\\\", \\\"g_per_kwh\\\": 102.7}, {\\\"hour_start\\\": \\\"2026-09-14T16:00\\\", \\\"g_per_kwh\\\": 128.2}, {\\\"hour_start\\\": \\\"2026-09-14T17:00\\\", \\\"g_per_kwh\\\": 185.7}, {\\\"hour_start\\\": \\\"2026-09-14T18:00\\\", \\\"g_per_kwh\\\": 204.9}, {\\\"hour_start\\\": \\\"2026-09-14T19:00\\\", \\\"g_per_kwh\\\": 189.2}, {\\\"hour_start\\\": \\\"2026-09-14T20:00\\\", \\\"g_per_kwh\\\": 191.7}, {\\\"hour_start\\\": \\\"2026-09-14T21:00\\\", \\\"g_per_kwh\\\": 178.1}, {\\\"hour_start\\\": \\\"2026-09-14T22:00\\\", \\\"g_per_kwh\\\": 166.8}, {\\\"hour_start\\\": \\\"2026-09-14T23:00\\\", \\\"g_per_kwh\\\": 158.0}], \\\"mean_g_per_kwh\\\": 146.7, \\\"greenest_hour\\\": {\\\"hour_start\\\": \\\"2026-09-14T00:00\\\", \\\"g_per_kwh\\\": 99.6}, \\\"dirtiest_hour\\\": {\\\"hour_start\\\": \\\"2026-09-14T18:00\\\", \\\"g_per_kwh\\\": 204.9}, \\\"note\\\": \\\"Prognose fra Energinet (CO2EmisProg). Tallet er for strømmen i nettet, ikke for kundens elaftale.\\\", \\\"source\\\": \\\"Energi Data Service / CO2EmisProg (snapshot)\\\"}\"}",
+    "_meta": {
+     "fastmcp": {
+      "wrap_result": true
+     }
+    },
+    "structuredContent": {
+     "result": "{\"area\": \"DK1\", \"start\": \"2026-09-14T00:00\", \"end\": \"2026-09-15T00:00\", \"unit\": \"g CO2/kWh\", \"resolution\": \"time\", \"hours\": [{\"hour_start\": \"2026-09-14T00:00\", \"g_per_kwh\": 99.6}, {\"hour_start\": \"2026-09-14T01:00\", \"g_per_kwh\": 115.8}, {\"hour_start\": \"2026-09-14T02:00\", \"g_per_kwh\": 118.0}, {\"hour_start\": \"2026-09-14T03:00\", \"g_per_kwh\": 125.0}, {\"hour_start\": \"2026-09-14T04:00\", \"g_per_kwh\": 133.7}, {\"hour_start\": \"2026-09-14T05:00\", \"g_per_kwh\": 151.4}, {\"hour_start\": \"2026-09-14T06:00\", \"g_per_kwh\": 168.1}, {\"hour_start\": \"2026-09-14T07:00\", \"g_per_kwh\": 167.4}, {\"hour_start\": \"2026-09-14T08:00\", \"g_per_kwh\": 163.4}, {\"hour_start\": \"2026-09-14T09:00\", \"g_per_kwh\": 163.6}, {\"hour_start\": \"2026-09-14T10:00\", \"g_per_kwh\": 143.7}, {\"hour_start\": \"2026-09-14T11:00\", \"g_per_kwh\": 123.3}, {\"hour_start\": \"2026-09-14T12:00\", \"g_per_kwh\": 109.2}, {\"hour_start\": \"2026-09-14T13:00\", \"g_per_kwh\": 116.6}, {\"hour_start\": \"2026-09-14T14:00\", \"g_per_kwh\": 117.9}, {\"hour_start\": \"2026-09-14T15:00\", \"g_per_kwh\": 102.7}, {\"hour_start\": \"2026-09-14T16:00\", \"g_per_kwh\": 128.2}, {\"hour_start\": \"2026-09-14T17:00\", \"g_per_kwh\": 185.7}, {\"hour_start\": \"2026-09-14T18:00\", \"g_per_kwh\": 204.9}, {\"hour_start\": \"2026-09-14T19:00\", \"g_per_kwh\": 189.2}, {\"hour_start\": \"2026-09-14T20:00\", \"g_per_kwh\": 191.7}, {\"hour_start\": \"2026-09-14T21:00\", \"g_per_kwh\": 178.1}, {\"hour_start\": \"2026-09-14T22:00\", \"g_per_kwh\": 166.8}, {\"hour_start\": \"2026-09-14T23:00\", \"g_per_kwh\": 158.0}], \"mean_g_per_kwh\": 146.7, \"greenest_hour\": {\"hour_start\": \"2026-09-14T00:00\", \"g_per_kwh\": 99.6}, \"dirtiest_hour\": {\"hour_start\": \"2026-09-14T18:00\", \"g_per_kwh\": 204.9}, \"note\": \"Prognose fra Energinet (CO2EmisProg). Tallet er for strømmen i nettet, ikke for kundens elaftale.\", \"source\": \"Energi Data Service / CO2EmisProg (snapshot)\"}"
+    }
+   }
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011Cfq3an19dMtYi2effK5fw",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01XC73fpYeRdNBrqZEHm8TAU",
+      "name": "mcp__ladeagent__get_generation_mix",
+      "input": {
+       "area": "DK1",
+       "start": "2026-09-14T00:00",
+       "end": "2026-09-15T00:00"
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 789,
+     "cache_read_input_tokens": 21962,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 789
+     },
+     "output_tokens": 32,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "uuid": "6ce1f9f6-9741-4651-8a8d-64dfac316384",
+   "timestamp": "2026-10-08T15:57:50.449Z",
+   "request_id": "req_011Cfq3ammG2U54rZ7hmgykF",
+   "wire_tool_inputs": {
+    "toolu_01XC73fpYeRdNBrqZEHm8TAU": {
+     "area": "DK1",
+     "start": "2026-09-14T00:00",
+     "end": "2026-09-15T00:00"
+    }
+   },
+   "tool_use_meta": [
+    {
+     "id": "toolu_01XC73fpYeRdNBrqZEHm8TAU",
+     "display_name": "Get Generation Mix",
+     "server_display_name": "ladeagent"
+    }
+   ]
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_01XC73fpYeRdNBrqZEHm8TAU",
+      "type": "tool_result",
+      "content": "{\"result\":\"{\\\"area\\\": \\\"DK1\\\", \\\"start\\\": \\\"2026-09-14T00:00\\\", \\\"end\\\": \\\"2026-09-15T00:00\\\", \\\"unit\\\": \\\"% af produktion i området\\\", \\\"shares_pct\\\": {\\\"havvind\\\": 25.7, \\\"landvind\\\": 24.3, \\\"sol\\\": 19.3, \\\"centrale_vaerker\\\": 22.3, \\\"decentrale_vaerker\\\": 8.4}, \\\"wind_and_solar_pct\\\": 69.3, \\\"note\\\": \\\"Kun produktion i prisområdet; import/eksport er ikke med. Realtidsdata, kun for tidspunkter der er passeret.\\\", \\\"source\\\": \\\"Energi Data Service / ElectricityProdex5MinRealtime (snapshot)\\\"}\"}"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "uuid": "3a4c42e4-de29-47df-9ea4-7298ce591f25",
+   "timestamp": "2026-10-08T15:57:50.505Z",
+   "tool_use_result": {
+    "content": "{\"result\":\"{\\\"area\\\": \\\"DK1\\\", \\\"start\\\": \\\"2026-09-14T00:00\\\", \\\"end\\\": \\\"2026-09-15T00:00\\\", \\\"unit\\\": \\\"% af produktion i området\\\", \\\"shares_pct\\\": {\\\"havvind\\\": 25.7, \\\"landvind\\\": 24.3, \\\"sol\\\": 19.3, \\\"centrale_vaerker\\\": 22.3, \\\"decentrale_vaerker\\\": 8.4}, \\\"wind_and_solar_pct\\\": 69.3, \\\"note\\\": \\\"Kun produktion i prisområdet; import/eksport er ikke med. Realtidsdata, kun for tidspunkter der er passeret.\\\", \\\"source\\\": \\\"Energi Data Service / ElectricityProdex5MinRealtime (snapshot)\\\"}\"}",
+    "_meta": {
+     "fastmcp": {
+      "wrap_result": true
+     }
+    },
+    "structuredContent": {
+     "result": "{\"area\": \"DK1\", \"start\": \"2026-09-14T00:00\", \"end\": \"2026-09-15T00:00\", \"unit\": \"% af produktion i området\", \"shares_pct\": {\"havvind\": 25.7, \"landvind\": 24.3, \"sol\": 19.3, \"centrale_vaerker\": 22.3, \"decentrale_vaerker\": 8.4}, \"wind_and_solar_pct\": 69.3, \"note\": \"Kun produktion i prisområdet; import/eksport er ikke med. Realtidsdata, kun for tidspunkter der er passeret.\", \"source\": \"Energi Data Service / ElectricityProdex5MinRealtime (snapshot)\"}"
+    }
+   }
+  },
+  {
+   "type": "assistant",
+   "message": {
+    "model": "claude-sonnet-5-5",
+    "id": "msg_011Cfq3axHGaEJrz6ySM7FqP",
+    "type": "message",
+    "role": "assistant",
+    "content": [
+     {
+      "type": "tool_use",
+      "id": "toolu_01F1DhwH4bZjrrcQdAMvvfny",
+      "name": "StructuredOutput",
+      "input": {
+       "answer": "I dag (14. september) i Jylland/Fyn (DK1) er CO2-prognosen i gennemsnit 146,7 g/kWh. Grønnest er kl. 00–01 med 99,6 g/kWh, og mest CO2-tungt er kl. 18–19 med 204,9 g/kWh. Efter kl. 17 er strømmen generelt mindre grøn (ca. 160–205 g/kWh). Midt på dagen kl. 12–16 ligger den omkring 103–118 g/kWh. Vind og sol stod for 69,3 % af produktionen i DK1 (havvind 25,7 %, landvind 24,3 %, sol 19,3 %).",
+       "answer_type": "data",
+       "area": "DK1",
+       "window_start": "2026-09-14T00:00",
+       "window_end": "2026-09-15T00:00",
+       "cost_dkk": null,
+       "savings_dkk": null,
+       "plan_id": null,
+       "caveats": [
+        "CO2 er en prognose fra Energinet og gælder strømmen i nettet, ikke en bestemt elaftale",
+        "Produktionsandele gælder kun produktion i DK1, uden import/eksport"
+       ]
+      },
+      "caller": {
+       "type": "direct"
+      }
+     }
+    ],
+    "container": null,
+    "stop_reason": null,
+    "stop_sequence": null,
+    "stop_details": null,
+    "usage": {
+     "input_tokens": 2,
+     "cache_creation_input_tokens": 1887,
+     "cache_read_input_tokens": 22751,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 1887
+     },
+     "output_tokens": 25,
+     "service_tier": "standard",
+     "inference_geo": "not_available"
+    },
+    "diagnostics": null,
+    "context_management": null
+   },
+   "parent_tool_use_id": null,
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "uuid": "36ff0fe5-1346-4478-9ebf-543bbd969cb4",
+   "timestamp": "2026-10-08T15:57:55.681Z",
+   "request_id": "req_011Cfq3awzASBKgYuzKn1r6p",
+   "wire_tool_inputs": {
+    "toolu_01F1DhwH4bZjrrcQdAMvvfny": {
+     "answer": "I dag (14. september) i Jylland/Fyn (DK1) er CO2-prognosen i gennemsnit 146,7 g/kWh. Grønnest er kl. 00–01 med 99,6 g/kWh, og mest CO2-tungt er kl. 18–19 med 204,9 g/kWh. Efter kl. 17 er strømmen generelt mindre grøn (ca. 160–205 g/kWh). Midt på dagen kl. 12–16 ligger den omkring 103–118 g/kWh. Vind og sol stod for 69,3 % af produktionen i DK1 (havvind 25,7 %, landvind 24,3 %, sol 19,3 %).",
+     "answer_type": "data",
+     "area": "DK1",
+     "window_start": "2026-09-14T00:00",
+     "window_end": "2026-09-15T00:00",
+     "cost_dkk": null,
+     "savings_dkk": null,
+     "plan_id": null,
+     "caveats": [
+      "CO2 er en prognose fra Energinet og gælder strømmen i nettet, ikke en bestemt elaftale",
+      "Produktionsandele gælder kun produktion i DK1, uden import/eksport"
+     ]
+    }
+   }
+  },
+  {
+   "type": "user",
+   "message": {
+    "role": "user",
+    "content": [
+     {
+      "tool_use_id": "toolu_01F1DhwH4bZjrrcQdAMvvfny",
+      "type": "tool_result",
+      "content": "Structured output provided successfully"
+     }
+    ]
+   },
+   "parent_tool_use_id": null,
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "uuid": "32954a58-b932-450b-a755-3491ffd30c13",
+   "timestamp": "2026-10-08T15:57:55.685Z",
+   "tool_use_result": "Structured output provided successfully"
+  },
+  {
+   "duration_api_ms": 10488,
+   "stop_reason": "tool_use",
+   "session_id": "9211563a-3370-4abf-87c5-47e14f13f812",
+   "total_cost_usd": 0.12231750000000001,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 6746,
+    "cache_read_input_tokens": 62605,
+    "output_tokens": 941,
+    "output_tokens_details": {
+     "thinking_tokens": 21
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 6746,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 565,
+      "cache_read_input_tokens": 22751,
+      "cache_creation_input_tokens": 1887,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 1887
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard"
+   },
+   "modelUsage": {
+    "claude-sonnet-5-5": {
+     "inputTokens": 6,
+     "outputTokens": 941,
+     "cacheReadInputTokens": 62605,
+     "cacheCreationInputTokens": 6746,
+     "webSearchRequests": 0,
+     "costUSD": 0.12231750000000001,
+     "contextWindow": 200000,
+     "maxOutputTokens": 128000,
+     "thinkingTokens": 21,
+     "canonicalModel": "claude-sonnet-5-5",
+     "provider": "firstParty",
+     "costBasis": "unknown"
+    }
+   },
+   "permission_denials": [],
+   "terminal_reason": "completed",
+   "fast_mode_state": "off",
+   "fast_mode_disabled_reason": "sdk_opt_in_required",
+   "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+     "background": 0,
+     "foreground": 0,
+     "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+     "parent": 0,
+     "user": 0,
+     "system": 0
+    },
+    "refused": {
+     "depth_limit": 0,
+     "concurrency_limit": 0,
+     "budget": 0
+    },
+    "by_type": {}
+   },
+   "is_error": false,
+   "num_turns": 5,
+   "subtype": "success",
+   "api_error_status": null,
+   "result": "{\"answer\":\"I dag (14. september) i Jylland/Fyn (DK1) er CO2-prognosen i gennemsnit 146,7 g/kWh. Grønnest er kl. 00–01 med 99,6 g/kWh, og mest CO2-tungt er kl. 18–19 med 204,9 g/kWh. Efter kl. 17 er strømmen generelt mindre grøn (ca. 160–205 g/kWh). Midt på dagen kl. 12–16 ligger den omkring 103–118 g/kWh. Vind og sol stod for 69,3 % af produktionen i DK1 (havvind 25,7 %, landvind 24,3 %, sol 19,3 %).\",\"answer_type\":\"data\",\"area\":\"DK1\",\"window_start\":\"2026-09-14T00:00\",\"window_end\":\"2026-09-15T00:00\",\"cost_dkk\":null,\"savings_dkk\":null,\"plan_id\":null,\"caveats\":[\"CO2 er en prognose fra Energinet og gælder strømmen i nettet, ikke en bestemt elaftale\",\"Produktionsandele gælder kun produktion i DK1, uden import/eksport\"]}",
+   "structured_output": {
+    "answer": "I dag (14. september) i Jylland/Fyn (DK1) er CO2-prognosen i gennemsnit 146,7 g/kWh. Grønnest er kl. 00–01 med 99,6 g/kWh, og mest CO2-tungt er kl. 18–19 med 204,9 g/kWh. Efter kl. 17 er strømmen generelt mindre grøn (ca. 160–205 g/kWh). Midt på dagen kl. 12–16 ligger den omkring 103–118 g/kWh. Vind og sol stod for 69,3 % af produktionen i DK1 (havvind 25,7 %, landvind 24,3 %, sol 19,3 %).",
+    "answer_type": "data",
+    "area": "DK1",
+    "window_start": "2026-09-14T00:00",
+    "window_end": "2026-09-15T00:00",
+    "cost_dkk": null,
+    "savings_dkk": null,
+    "plan_id": null,
+    "caveats": [
+     "CO2 er en prognose fra Energinet og gælder strømmen i nettet, ikke en bestemt elaftale",
+     "Produktionsandele gælder kun produktion i DK1, uden import/eksport"
+    ]
+   },
+   "ttft_ms": 2442,
+   "type": "result",
+   "duration_ms": 10560,
+   "uuid": "7fee848e-5e9b-4642-bdf4-8222e9cde6a7",
+   "ttft_stream_ms": 1994,
+   "time_to_request_ms": 16,
+   "first_content_frame_ms": 1994,
+   "queued_turn_count": 0,
+   "result_index": 0
+  }
+ ],
+ "rate_limited_retries": 0,
+ "cost_cap_mode": "post hoc (listepris)"
+}
