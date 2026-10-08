@@ -21,6 +21,11 @@ MAX_WINDOW_DAYS = 7          # et tool-kald må højst spænde over 7 dage
 MAX_KWH = 500.0              # rimelig øvre grænse for en privat lade-/varmepumpeopgave
 MAX_KW = 50.0
 
+# "I nat" i kundesprog: fra kl. 22 i dag til kl. 07 i morgen (lokal tid). Samme
+# definition bruges i prompt v2, i MCP-serverens instruktioner og i evals-facit.
+NIGHT_START_HOUR = 22
+NIGHT_END_HOUR = 7
+
 # --- Datakilder ----------------------------------------------------------------
 EDS_BASE = "https://api.energidataservice.dk/dataset"
 DATASETS = {

@@ -12,14 +12,14 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from ladeagent import tools
+from ladeagent import config, tools
 from ladeagent.data.eds import DataStore
 
 OUT = Path(__file__).resolve().parent / "golden.jsonl"
 TODAY = "2026-09-14"
 TOMORROW = "2026-09-15"
 YESTERDAY = "2026-09-13"
-TONIGHT = (f"{TODAY}T22:00", f"{TOMORROW}T07:00")
+TONIGHT = (f"{TODAY}T{config.NIGHT_START_HOUR:02d}:00", f"{TOMORROW}T{config.NIGHT_END_HOUR:02d}:00")
 
 
 def numeric_cases(s: DataStore) -> list[dict]:
