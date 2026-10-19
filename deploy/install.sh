@@ -15,7 +15,7 @@ cp deploy/ladeagent-mcp.service /etc/systemd/system/ladeagent-mcp.service
 systemctl daemon-reload
 systemctl enable ladeagent-mcp >/dev/null 2>&1 || true
 systemctl restart ladeagent-mcp
-sleep 4
+for i in $(seq 1 30); do curl -s -o /dev/null http://127.0.0.1:8765/mcp && break; sleep 1; done
 echo "service: $(systemctl is-active ladeagent-mcp)"
 curl -s -o /dev/null -w "local mcp initialize: HTTP %{http_code}\n" -X POST http://127.0.0.1:8765/mcp \
   -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
