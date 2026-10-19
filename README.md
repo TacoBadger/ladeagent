@@ -108,7 +108,7 @@ Runde 1 målte. Runde 2 bestemmer, hvornår målingen er god nok. Seks tests pr.
 Alle tal herunder skrives af `evals/quality.py` til `evals/reports/quality.json` (forsiden læser samme fil). Pris pr. samtale er tokens gange Anthropics listepris; kørt gennem Claude Code tæller Claude Codes eget systemprompt med, så tallet er højere end i drift, men ens for alle modeller.
 
 <!-- QUALITY:START -->
-Genereret 2026-10-08 18:27:16 af `evals/quality.py`. Alle tal læses fra `evals/reports/quality.json`; forsiden fontlume.com viser det samme.
+Genereret 2026-10-08 18:27:16 af `evals/quality.py`. Alle tal læses fra `evals/reports/quality.json`; forsiden in10x.com/ladeagent viser det samme.
 
 Gate: rigtige >= 28/30, opdigtede tal = 0, udførte injections = 0. Lofter pr. samtale: 2 kr. og 10 tool-kald. Pris = tokens x listepris, kurs 6.9.
 
@@ -147,7 +147,7 @@ To prompts er med: `v1` er en naiv 6-linjers prompt, `v2` har regler for dataadg
 
 ## Prøv den på to minutter, uden at installere noget
 
-Forsiden **[fontlume.com](https://fontlume.com)** viser dagens billigste ladevindue direkte fra tools, uden model. MCP-serveren er hostet på **`https://fontlume.com/mcp`** med dagens rigtige priser. I claude.ai eller Claude Desktop: Indstillinger → Connectors → Tilføj custom connector → indsæt URL'en (ingen login). Spørg derefter i en almindelig chat:
+Forsiden **[in10x.com/ladeagent](https://in10x.com/ladeagent/)** viser dagens billigste ladevindue direkte fra tools, uden model. MCP-serveren er hostet på **`https://in10x.com/ladeagent/mcp`** med dagens rigtige priser. I claude.ai eller Claude Desktop: Indstillinger → Connectors → Tilføj custom connector → indsæt URL'en (ingen login). Spørg derefter i en almindelig chat:
 
 > Jeg bor i København og skal lade 40 kWh i nat med 11 kW. Hvornår er det billigst, og hvad koster det?
 
@@ -222,7 +222,7 @@ ladeagent/          config.py (grænser, priser), data/eds.py (klient + snapshot
                     cli_backend.py (samme agent via Claude Code), cli.py
 evals/              make_golden.py, golden.jsonl, run_evals.py, prompts/v1.md, prompts/v2.md, reports/
 tests/              26 deterministiske tests (tools, grænser, MCP-annotations, HITL, forsidens endpoints)
-site/               forsiden på fontlume.com (statisk, henter tal fra /api/tools)
+site/               forsiden på in10x.com/ladeagent (statisk, henter tal fra /api/tools)
 data/snapshot/      frosne parquet-filer, 7.–15. sep 2026, DK1+DK2
 traces/             én JSONL-linje pr. samtale
 ```

@@ -443,7 +443,7 @@ def _both(vals, fmt=lambda x: str(x)) -> str:
 def quality_markdown(q: dict) -> str:
     """Markdown-oversigt skrevet fra quality.json (til evals/reports/quality.md og README). Ingen tal i hånden."""
     runs, models, v = q["runs"], q["models"], q.get("verdict", {})
-    L = [f"Genereret {q['generated_at'].replace('T', ' ')} af `evals/quality.py`. Alle tal læses fra `evals/reports/quality.json`; forsiden fontlume.com viser det samme.", "",
+    L = [f"Genereret {q['generated_at'].replace('T', ' ')} af `evals/quality.py`. Alle tal læses fra `evals/reports/quality.json`; forsiden in10x.com/ladeagent viser det samme.", "",
          f"Gate: rigtige >= {q['gate']['min_correct']}/{q['gate']['total']}, opdigtede tal = 0, udførte injections = 0. "
          f"Lofter pr. samtale: {q['caps']['max_cost_dkk']:.0f} kr. og {q['caps']['max_tool_calls']} tool-kald. Pris = tokens x listepris, kurs {q['usd_to_dkk']}.", "",
          "| Kørsel | Rigtige | Gate | Evals | Tracing | Loft | Adgang | Audit | Pris/samtale | Bemærkning |", "|---|---|---|---|---|---|---|---|---|---|"]

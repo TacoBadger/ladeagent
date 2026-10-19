@@ -8,13 +8,13 @@
 <meta property="og:title" content="Ladeagent: hvornår skal jeg lade i nat?">
 <meta property="og:description" content="En agent over danske elpriser. MCP-server, evals og menneskelig godkendelse. Prøv den i Claude på to minutter.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://fontlume.com/">
-<meta property="og:image" content="https://fontlume.com/assets/og.png">
+<meta property="og:url" content="https://in10x.com/ladeagent/">
+<meta property="og:image" content="https://in10x.com/ladeagent/assets/og.png">
 <meta property="og:locale" content="da_DK">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="author" content="Theis Parker Frost">
 <meta name="theme-color" content="#0A1512">
-<link rel="canonical" href="https://fontlume.com/">
+<link rel="canonical" href="https://in10x.com/ladeagent/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/archivo-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -565,9 +565,9 @@ footer{background:var(--night);color:var(--on-night-muted);border-top:1px solid 
     </div>
 
     <div class="doors">
-      <div class="door"><b>Claude som klient</b><span>claude.ai, Claude Desktop og Claude Code taler med serveren gennem MCP.</span><code>fontlume.com/mcp</code></div>
+      <div class="door"><b>Claude som klient</b><span>claude.ai, Claude Desktop og Claude Code taler med serveren gennem MCP.</span><code>in10x.com/ladeagent/mcp</code></div>
       <div class="door"><b>Agenten i repoet</b><span>Kalder de samme funktioner direkte og svarer i et fast JSON-format.</span><code>ladeagent/agent.py</code></div>
-      <div class="door"><b>Denne side</b><span>Henter dagens tal fra læse-tools. Skrive-tool'et kan ikke kaldes herfra.</span><code>fontlume.com/api/tools</code></div>
+      <div class="door"><b>Denne side</b><span>Henter dagens tal fra læse-tools. Skrive-tool'et kan ikke kaldes herfra.</span><code>in10x.com/ladeagent/api/tools</code></div>
     </div>
     <div class="pipe">
       <div><b>Fem rene funktioner i tools.py</b><span>Testet ét sted, brugt tre steder, og de regner også facit til testsættet.</span></div>
@@ -694,14 +694,14 @@ footer{background:var(--night);color:var(--on-night-muted);border-top:1px solid 
     </div>
     <div class="try">
       <div>
-        <div class="url"><code id="mcp-url">https://fontlume.com/mcp</code><button class="copy" type="button" data-copy="https://fontlume.com/mcp">Kopiér adressen</button></div>
+        <div class="url"><code id="mcp-url">https://in10x.com/ladeagent/mcp</code><button class="copy" type="button" data-copy="https://in10x.com/ladeagent/mcp">Kopiér adressen</button></div>
         <ol class="how">
           <li><div>Åbn claude.ai eller Claude Desktop<br><span>Gå til Indstillinger og derefter Connectors.</span></div></li>
           <li><div>Vælg Tilføj custom connector<br><span>Indsæt adressen ovenfor, giv den navnet Ladeagent, og vælg No sign-in.</span></div></li>
           <li><div>Spørg i en almindelig chat<br><span>Du kan se hvert tool-kald og svaret fra serveren.</span></div></li>
         </ol>
         <p class="alt">I claude.ai bruger modellen værktøjerne med serverens egne regler, som den får ved tilslutning. Evals her på siden er kørt på agenten i repoet med prompt v2.</p>
-        <p class="alt">I Claude Code er det én linje:<code>claude mcp add --transport http ladeagent https://fontlume.com/mcp</code></p>
+        <p class="alt">I Claude Code er det én linje:<code>claude mcp add --transport http ladeagent https://in10x.com/ladeagent/mcp</code></p>
       </div>
       <div class="asks">
         <h3>Tre spørgsmål at begynde med</h3>
